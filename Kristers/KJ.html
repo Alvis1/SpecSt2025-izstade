@@ -4,10 +4,12 @@
   </head>
   <body>
     <a-scene>
-    <!-oh boi->
-      <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
-      <a-sphere position="3.70915 1.25 -60" radius="39" color="#0000FF" material="emissive: #25f325; emissiveIntensity: 4.25" geometry="phiLength: 360.25; phiStart: 0.18"></a-sphere>
-      <a-cylinder position="1 200 11" radius="20" height="1.5" color="#FFC65D"></a-cylinder>
+      <a-camera camera="active: true" look-controls wasd-controls position="0 1.6 0" fov="60"></a-camera>
+
+      <a-entity gltf-model="assets/couch.glb" id="2couch" position="0 0.913 0"></a-entity>
+      <a-entity gltf-model="assets/tv_table.glb" id="table" position="0 -0.007 -3.05528" rotation="0 -90 0"></a-entity>
+      <a-entity gltf-model="assets/crt_tv.glb" id="tv" position="0 0.62006 -2.93218" rotation="0 180 0" scale="2 2 2"></a-entity>
+
       <a-plane position="0 0 -4" rotation="-90 0 0" width="200" height="200" color="#7BC8A4"></a-plane>
       <a-sky color="#FFD580"></a-sky>
     </a-scene>
