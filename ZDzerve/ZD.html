@@ -5,13 +5,18 @@
     <body>
         <a-scene>
             <!--Izstades objekti xyz-->
-            <a-cone position="-0.96355 1.4793 -4.93248" color="#29130B" id="jumts"></a-cone>
-            <a-box position="-1 0.5 -4.93753" rotation="0 45 0" material="blending: none; color: #5E2D13"></a-box>
-            <a-sphere position="2 3 -5" radius="1.25" color="#F5BB0C" material="emissive: #f2c373; emissiveIntensity: 2" id="sun"></a-sphere>
-            <a-cylinder position="0.09635 0.4837 -3" radius="0.5" height="1.5" color="cyan" material="color: #543321" geometry="radius: 0.25" rotation="90 0 45" id="log"></a-cylinder>
+            <a-box position="-0.00141 1.50604 -4.00369" material="blending: none; color: #5E2D13" scale="4 3 20.1" id="gaitenis"></a-box>
+            <a-box position="0.003 0.898 -13.92209" material="color: #381E06" id="durvis" scale="1 1.8 0.1"></a-box>
+            <a-entity obj-model="mtl: objekti/old_table.mtl; obj: objekti/old_table.obj" material="color: #391a09" id="galds" scale="0.01 0.01 0.01" rotation="0 90 0" position="-1.471 0.01159 -2.47242"></a-entity>
+            <a-entity obj-model="mtl: objekti/old_table.mtl; obj: objekti/old_table.obj" material="color: #391a09" id="galds-2" scale="0.01 0.01 0.01" rotation="0 90 0" position="-1.471 0.01159 -3.75974"></a-entity>
+            <a-entity obj-model="mtl: objekti/old_table.mtl; obj: objekti/old_table.obj" material="color: #391a09" id="galds-3" scale="0.01 0.01 0.01" rotation="0 90 0" position="-1.471 0.01159 -4.97262"></a-entity>
+            <a-entity obj-model="mtl: objekti/water_bottle.mtl; obj: objekti/water_bottle.obj" material="color: #213C42" id="pudele" position="-0.11075 0.85605 -1.57688" rotation="-24.16392205184734 -51.75183988739648 -17.319941189009654"></a-entity>
+            <a-entity obj-model="mtl: objekti/water_dispenser.mtl; obj: objekti/water_dispenser.obj"></a-entity>
             <!--Pasaule-->
-            <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#273024"></a-plane>
+            <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="20" color="#273024"></a-plane>
             <a-sky color="#213C42"></a-sky>
+            <!--Kontroles-->
+            <a-entity camera="active: true" position="0 1.6 0" wasd-controls="acceleration: 15; fly: false" look-controls="" aframe-injected="" id="pov"></a-entity>
           </a-scene>
     </body>
 </html>

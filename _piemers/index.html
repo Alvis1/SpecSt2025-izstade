@@ -3,13 +3,28 @@
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
   </head>
   <body>
-    <a-scene>
+    <a-scene fog="type: linear; color: #00427c; near: 1; far: 15">
 
-      <a-box position="-2.29058 0.5 -4.55434" rotation="0 45 0" color="#4CC3D9"></a-box>
-      <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
-      <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
-      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+
+
+
+      <!--OBJEKTI-->
+      <a-box position="-2.29058 0.5 -4.55434" rotation="0 45 0" color="#4CC3D9" shadow=""></a-box>
+      <a-sphere position="0 3.18229 -5" radius="1.25" color="#EF2D5E"></a-sphere>
+      <a-cylinder position="-0.55536 0.75 -6.6296" radius="0.5" height="1.5" color="#FFC65D" shadow="" scale="0.96494 0.96494 0.96494"></a-cylinder>
+
+      <a-entity gltf-model="objekti/kauss_01.glb" shadow position="-0.78299 0 -5.26894" rotation="0 29.87974901607243 0" id="kauss"></a-entity>
+
+
+      
+      <!--VIDE-->
+      <a-plane position="0 0 -4" shadow rotation="-90 0 0" width="100" height="100" color="#7BC8A4"></a-plane>
       <a-sky color="#ECECEC"></a-sky>
+
+
+      <!--Gaismas-->
+      <a-entity light="angle: 23.53; distance: 9.31; intensity: 10; penumbra: 1; type: spot; castShadow: true" position="0 3.06583 0" rotation="-26.832759461566713 0 0"></a-entity>
+      <a-entity light="color: #53d5fd; intensity: 0.4; type: ambient"></a-entity>
 
     </a-scene>
   </body>
