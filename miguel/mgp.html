@@ -4,11 +4,20 @@
   </head>
   <body>
     <a-scene>
-      <a-box position="-1 0.5 0.25" rotation="0 0 0" color="#4CC3D9"></a-box>
-      <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
-      <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
-      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+      <a-box shadow position="-1 0.5 0.25" color="#4CC3D9" material="color: #ffad1f"></a-box>
+      <a-sphere shadow position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
+      <a-cylinder shadow position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D" rotation="45 0 45"></a-cylinder>
+
+     <a-entity shadow gltf-model="objects/idea1.glb" scale="4.22062 4.22062 4.22062" rotation="0 72.07923654304781 0" position="-0.96476 0 -3.00056"></a-entity>
+
+
+      <a-plane shadow position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+      <a-entity id="aframeInspectorMouseCursor" raycaster="direction: 0.4899229571105848 0.21382613183459992 -0.8451354219535898; interval: 100; objects: a-scene :not([data-aframe-inspector]); origin: 0 1.6 6.5314000235288106; useWorldCoordinates: true" cursor="rayOrigin: mouse" data-aframe-inspector="true" geometry="primitive: cylinder" position="0 1.0928 -2.62147" rotation="0 0 45"></a-entity>
       <a-sky color="#ECECEC"></a-sky>
+
+<a-entity light="color: #1fa4d1; intensity: 1.09; type: ambient" data-aframe-default-light="" aframe-injected=""></a-entity>
+     <a-entity light="angle: 20.43; intensity: 9.08; penumbra: 0.69; type: spot; castShadow: true" position="-2.29538 1.61516 0" rotation="0 -28.64846271433629 0" id="spot"></a-entity>
     </a-scene>
   </body>
 </html>
+
