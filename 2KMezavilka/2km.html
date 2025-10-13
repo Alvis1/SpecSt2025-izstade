@@ -3,26 +3,45 @@
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
   </head>
   <body>
-    <a-scene>
+ 
+    <a-scene keyboard-shortcuts="" screenshot="" xr-mode-ui="" device-orientation-permission-ui="">
 
 
       <!--izstades objekti-->
 
-      <a-box position="-1 2 -3" rotation="0 45 0" color="blue"></a-box>
+     <!-- Barbie Doll 1 -->
+      <a-entity position="-2 0 -5">
+        <a-cylinder height="2" radius="0.4" color="#ff66b2" geometry="height: 0.87" position="-0.00037 0.48806 0"></a-cylinder>
+        <a-sphere position="0 1.2 0" radius="0.35" color="#ffcce0"></a-sphere>
+        <a-cone position="0 1.7 0" height="0.6" radius-bottom="0.3" color="#ffb3d9"></a-cone>
+      </a-entity>
 
-      <a-sphere position="0 1.25 -5" radius="1.25" color="blue" material="opacity: 0.65; color: blue"></a-sphere>
+      <!-- Barbie Doll 2 -->
+      <a-entity position="0 0 -5">
+        <a-cylinder height="2" radius="0.4" color="#ff80bf" geometry="height: 1" position="-0.0111 0.37829 0"></a-cylinder>
+        <a-sphere position="0 1.2 0" radius="0.35" color="#ffcce0"></a-sphere>
+        <a-cone position="0 1.7 0" height="0.6" radius-bottom="0.3" color="#ffb3d9"></a-cone>
+      </a-entity>
+
+      <!-- Barbie Doll 3 -->
+      <a-entity position="2 0 -5">
+        <a-cylinder height="2" radius="0.4" color="#ff99cc" geometry="height: 1" position="0 0.39967 0"></a-cylinder>
+        <a-sphere position="0 1.2 0" radius="0.35" color="#ffcce0"></a-sphere>
+        <a-cone position="0 1.7 0" height="0.6" radius-bottom="0.3" color="#ffb3d9"></a-cone>
+      </a-entity>
+
+
       
-      <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="blue"></a-cylinder>
-
-
-      <a-cylinder position="1 0.75 -4" radius="0.5" height="1.5" color="red"></a-cylinder>
       <!----------->
       <!--Pasaule-->
       <!----------->
-      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="blue"></a-plane>
+      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="blue" material="color: #f965ae" geometry="height: 8.16; width: 7.31"></a-plane>
 
       <a-sky color="#ECECEC"></a-sky>
 
+
+
+    </a-scene>
 
 
     </a-scene>
