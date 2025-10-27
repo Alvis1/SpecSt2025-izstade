@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="forward-back.js"></script>
+  </head>
+
+  <body>
+    <a-scene background="color:#ECECEC">
+      <!-- Camera rig (with controlled movement) -->
+      <a-entity forward-back>
+        <a-entity camera></a-entity>
+      </a-entity>
+
+      <!-- Ground -->
+      <a-plane rotation="-90 0 0" width="20" height="100" color="#ccc"></a-plane>
+
+      <!-- Red cube (behind the start, at z=+5) -->
+      <a-box color="#F33" position="0 0.5 5">
+        <a-animation attribute="rotation" dur="4000" to="0 360 0" repeat="indefinite"></a-animation>
+      </a-box>
+
+      <!-- Yellow cube (ahead, at z=-8) -->
+      <a-box color="#FFD700" position="0 1 -8">
+        <a-animation attribute="scale" dur="3000" dir="alternate" to="1.5 1.5 1.5" repeat="indefinite"></a-animation>
+      </a-box>
+
+      <!-- Optional white sphere (further depth) -->
+      <a-sphere color="#FFF" position="0 1 -12" radius="0.8"
+        material="emissive:white; emissiveIntensity:0.6"></a-sphere>
+
+      <a-sky color="#ECECEC"></a-sky>
+    </a-scene>
+  </body>
+</html>
