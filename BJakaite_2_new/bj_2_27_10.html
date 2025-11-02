@@ -2,6 +2,7 @@
   <head>
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
     <script src="forward-back.js"></script>
+    
   </head>
 
   <body>
@@ -19,14 +20,24 @@
         <a-animation attribute="rotation" dur="4000" to="0 360 0" repeat="indefinite"></a-animation>
       </a-box>
 
-      <!-- Yellow cube (ahead, at z=-8) -->
-      <a-box color="#FFD700" position="0 1 -8">
+      <!-- Yellow cube (ahead, at z=-20) -->
+      <a-box color="#FFD700" position="0 1 -20">
         <a-animation attribute="scale" dur="3000" dir="alternate" to="1.5 1.5 1.5" repeat="indefinite"></a-animation>
       </a-box>
 
       <!-- Optional white sphere (further depth) -->
       <a-sphere color="#FFF" position="0 1 -12" radius="0.8"
         material="emissive:white; emissiveIntensity:0.6"></a-sphere>
+
+          <!-- Load your new GLB asset -->
+  <a-assets>
+    <a-asset-item id="triangle" src="assets/tests_tr.glb"></a-asset-item>
+  </a-assets>
+
+  <!-- Add the model to the scene -->
+<a-entity gltf-model="assets/tests_tr.glb" position="0 1.7 -3
+" scale="5 5 5" 5="" rotation="-40.133974675528776 -35.185911156778985 17.993166598288372">
+  </a-entity>
 
       <a-sky color="#ECECEC"></a-sky>
     </a-scene>
