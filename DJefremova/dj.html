@@ -1,18 +1,73 @@
+Working code
+
+
 <html>
   <head>
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@5.x.x/dist/aframe-event-set-component.min.js"></script>
+     <script>
+    AFRAME.registerComponent('toggle-door', {
+      schema: {
+        openAngle: {type: 'number', default: 90},
+        duration: {type: 'number', default: 500}
+      },
+      init: function() {
+        this.isOpen = false;
+        this.el.addEventListener('click', this.toggleDoor.bind(this));
+      },
+      toggleDoor: function() {
+        const el = this.el;
+        const data = this.data;
+        
+        if (this.isOpen) {
+          // Close door
+          el.setAttribute('animation', {
+            property: 'rotation',
+            to: '0 0 0',
+            dur: data.duration,
+            easing: 'easeInOutQuad'
+          });
+        } else {
+          // Open door
+          el.setAttribute('animation', {
+            property: 'rotation',
+            to: `0 ${data.openAngle} 0`,
+            dur: data.duration,
+            easing: 'easeInOutQuad'
+          });
+        }
+        
+        this.isOpen = !this.isOpen;
+      }
+    });
+  </script>
   </head>
+
+  <!--  script for rotation -->
+    
   <body>
     <a-scene>
+ 
 
     <!--izstades objekti-->
       <a-entity gltf-model="aframe_assets/bed.glb" scale="0.5 0.5 0.5" position="-0.01909 0.45829 0"></a-entity>
       <a-entity gltf-model="aframe_assets/chair.glb" position="1.13815 -0.00066 -4.47231" scale="3 3 3"></a-entity>
-      
-      <a-entity gltf-model="aframe_assets/bedtable.glb" position="1.92424 -0.01504 0.96272" scale="0.9 0.9 0.9"></a-entity><!--kreisais galds-->>
+     
+      <a-entity gltf-model="aframe_assets/bedtable.glb" position="1.92424 -0.01504 0.96272" scale="0.9 0.9 0.9"></a-entity><!--kreisais galds-->
       <a-entity gltf-model="aframe_assets/cabinet.glb" scale="3 3 3" position="3.08756 1.65587 0.93647" rotation="0 90 0"></a-entity>
-      <a-entity gltf-model="aframe_assets/durtinas.glb" scale="3 3 3" position="3.08756 1.65587 0.93647" rotation="0 90 0"></a-entity>
+      <a-entity gltf-model="aframe_assets/durtinas.glb" id="cabinet" position="3.08756 1.65587 0.93647" rotation="0 90 0" scale="3 3 3"  toggle-door="openAngle: 90; duration: 500"
+        class="clickable"> </a-entity>
+      <a-entity gltf-model="aframe_assets/desk.glb" position="-0.75961 -0.00066 -4.47231" scale="3 3 3" rotation="0 180 0"></a-entity>
+      <a-entity gltf-model="aframe_assets/picture.glb" scale="3 3 3" position="3.08756 1.65587 0.93647" rotation="0 90 0"></a-entity>
       <a-plane rotation="-90 0 0" width="30" height="30"></a-plane>
+
+
+
+      <a-camera>
+        <a-cursor></a-cursor>
+      </a-camera>
+
     </a-scene>
   </body>
 </html>
+
