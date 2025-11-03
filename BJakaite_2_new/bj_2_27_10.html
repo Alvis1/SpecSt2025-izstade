@@ -25,19 +25,32 @@
         <a-animation attribute="scale" dur="3000" dir="alternate" to="1.5 1.5 1.5" repeat="indefinite"></a-animation>
       </a-box>
 
-      <!-- Optional white sphere (further depth) -->
+      <!-- white sphere -->
       <a-sphere color="#FFF" position="0 1 -12" radius="0.8"
         material="emissive:white; emissiveIntensity:0.6"></a-sphere>
 
-          <!-- Load your new GLB asset -->
+          <!-- GLB asset -->
   <a-assets>
-    <a-asset-item id="triangle" src="assets/tests_tr.glb"></a-asset-item>
+        <a-asset-item id="triangle" src="assets/tests_tr.glb"></a-asset-item>
+        <a-asset-item id="stairs" src="assets/kapnes.glb"></a-asset-item>
   </a-assets>
 
   <!-- Add the model to the scene -->
-<a-entity gltf-model="assets/tests_tr.glb" position="0 1.7 -3
-" scale="5 5 5" 5="" rotation="-40.133974675528776 -35.185911156778985 17.993166598288372">
+<!-- First model -->
+      <a-entity
+        gltf-model="#triangle"
+        position="0 1.7 -3"
+        scale="5 5 5"
+        rotation="-40.13 -35.18 17.99">
+      </a-entity>
+
+      <!-- Second model -->
+     <a-entity gltf-model="assets/kapnes.glb" position="-0.11063 0.51057 0.02914" scale="3 3 3" rotation="-2.5089821848778753 -117.69412548679804 -28.414695933922914">
+      </a-entity>
+
+
   </a-entity>
+
 
       <a-sky color="#ECECEC"></a-sky>
     </a-scene>
