@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SpecSt2025 Virtuālās Izstādes</title>
+    
+    <link rel="stylesheet" href="style.css" />
+    <style>
+    
+    </style>
+</head>
+<body>
+    <header>
+        <nav id="buttonContainer" aria-label="Projektu izvēlne">
+            <button class="button" onclick="loadPage('2KMezavilka/2km.html')" aria-label="Apskatīt 2KMezavilka projektu">2KMezavilka</button>
+            <button class="button" onclick="loadPage('BJakaite_2_new/bj_2.html')" aria-label="Apskatīt B. Jakaite projektu">B. Jakaite</button>
+            <button class="button" onclick="loadPage('DJefremova/dj.html')" aria-label="Apskatīt D. Jefremova projektu">D. Jefremova</button>
+            <button class="button" onclick="loadPage('ESundukova/es.html')" aria-label="Apskatīt E. Sundukova projektu">E. Sundukova</button>
+            <button class="button" onclick="loadPage('Kristers/KJ.html')" aria-label="Apskatīt Kristers J. projektu">Kristers J.</button>
+            <button class="button" onclick="loadPage('LKIjaba/LKI.html')" aria-label="Apskatīt LKI Jaba projektu">LKI Jaba</button>
+            <button class="button" onclick="loadPage('miguel/mgp.html')" aria-label="Apskatīt Miguel projektu">Miguel</button>
+            <button class="button" onclick="loadPage('ZDzerve/ZD.html')" aria-label="Apskatīt Z. Dzerve projektu">Z. Dzerve</button>
+            <button class="button" onclick="loadPage('_piemers/index.html')" aria-label="Apskatīt piemēru">Piemērs</button>
+        </nav>
+    </header>
+  
+    <div id="infoButtonContainer" class="info-button-container">
+        <button class="infobutton" onclick="loadPage('info.html')" aria-label="Apskatīt informāciju par izstādi">INFO</button>
+    </div>
+
+    <main>
+        <iframe id="myIframe" src="info.html" title="Izstādes saturs" aria-label="Izstādes galvenais saturs"></iframe>
+    </main>
+
+    <script>
+        function loadPage(url) {
+            const iframe = document.getElementById('myIframe');
+            const buttons = document.querySelectorAll('.button, .infobutton');
+            
+            // Add loading state
+            iframe.style.opacity = '0.5';
+            
+            // Update button states
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Load new page
+            iframe.src = url;
+            
+            // Remove loading state when loaded
+            iframe.onload = function() {
+                iframe.style.opacity = '1';
+            };
+            
+            // Handle loading errors
+            iframe.onerror = function() {
+                iframe.style.opacity = '1';
+                console.error('Failed to load page:', url);
+            };
+        }
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set initial active state for INFO button
+            document.querySelector('.infobutton').classList.add('active');
+        });
+    </script>
+</body>
+</html>
