@@ -1,12 +1,18 @@
 <html>
   <head>
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+
+    <script src="komponentes/navmesh.js"></script>
+    <script src="komponentes/lightmaps.js"></script>
+
   </head>
   <body>
     <a-scene fog="type: linear; color: #00427c; near: 1; far: 15">
 
 
-
+      <a-assets>
+          <img id="roomLightmap" src="att/kubsmaja_lm_01.webp">
+      </a-assets>
 
       <!--OBJEKTI-->
       <a-box position="-2.29058 0.5 -4.55434" rotation="0 45 0" color="#4CC3D9" shadow=""></a-box>
@@ -21,10 +27,28 @@
       <a-plane position="0 0 -4" shadow rotation="-90 0 0" width="100" height="100" color="#7BC8A4"></a-plane>
       <a-sky color="#ECECEC"></a-sky>
 
+      <a-entity 
+        shadow 
+        gltf-model="objekti/majkubs01.glb" 
+        position="0 0 0" rotation="0 0 0" scale="2 2 2" 
+        lightmap="texture: #roomLightmap; key: majkubs; intensity: 1"
+        animation="property: rotation.y; to: 360; loop: true; dur: 40000; easing: linear" 
+      ></a-entity>
+
 
       <!--Gaismas-->
-      <a-entity light="angle: 23.53; distance: 9.31; intensity: 10; penumbra: 1; type: spot; castShadow: true" position="0 3.06583 0" rotation="-26.832759461566713 0 0"></a-entity>
+     <a-entity light="angle: 23.53; distance: 9.31; intensity: 10; penumbra: 1; type: spot; castShadow: true" position="-0.58884 2.68951 3.43657" rotation="-26.832759461566713 0 0"></a-entity>
       <a-entity light="color: #53d5fd; intensity: 0.4; type: ambient"></a-entity>
+
+
+      <!--Navigacija -->
+
+      
+      <a-entity camera look-controls wasd-controls="acceleration:10" navmesh="navmesh: #ground-mesh" position="0 1.8 0">
+        <a-plane shadow scale="0.3 0.2 0.2" position="0 -0.1 -0.1" src="att/lobster_claws.png" transparent="true"></a-plane>
+      </a-entity>
+
+      <a-plane id="ground-mesh" position="0 .01 0" color="red" rotation="-90 0 0" scale="9 9 9" visible="true"></a-plane>
 
     </a-scene>
   </body>
