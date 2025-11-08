@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.6.0/dist/aframe-extras.min.js"></script>
+
+
+    </head>
+    <body>
+        <a-scene>
+            <!--Objekti_aina-->
+            <a-entity id="telpa uc">
+            <a-entity id="telpa" gltf-model="objekti/scene_1.glb" animation-mixer ></a-entity> </a-entity>     
+            </a-entity>
+            <!--Pasaule-->
+            <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="20" color="#273024"></a-plane>
+            <a-sky color="#213C42"></a-sky>
+
+            <!--Kontroles-->
+            <a-entity camera="active: true" position="0 1.6 0" wasd-controls="acceleration: 15; fly: false" look-controls="" aframe-injected="" id="pov"></a-entity>
+          </a-scene>
+    </body>
+</html>
