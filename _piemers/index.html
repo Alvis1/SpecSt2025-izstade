@@ -1,54 +1,84 @@
 <html>
   <head>
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
-
     <script src="komponentes/navmesh.js"></script>
     <script src="komponentes/lightmaps.js"></script>
 
+
   </head>
   <body>
-    <a-scene fog="type: linear; color: #00427c; near: 1; far: 15">
+    <a-scene>
+
+<a-assets>
+  <a-asset-item id="kolonnas" src="obj/kolonnas.glb"></a-asset-item>
+  <img id="kolonnas_LM" src="att/kolonnas_lm_02.jpg">
+
+</a-assets>
 
 
-      <a-assets>
-          <img id="roomLightmap" src="att/kubsmaja_lm_01.webp">
-      </a-assets>
+<!-------------------->
+<!--Izstades Objekti-->
+<!-------------------->
 
-      <!--OBJEKTI-->
-      <a-box position="-2.29058 0.5 -4.55434" rotation="0 45 0" color="#4CC3D9" shadow=""></a-box>
-      <a-sphere position="0 3.18229 -5" radius="1.25" color="#EF2D5E"></a-sphere>
-      <a-cylinder position="-0.55536 0.75 -6.6296" radius="0.5" height="1.5" color="#FFC65D" shadow="" scale="0.96494 0.96494 0.96494"></a-cylinder>
+        <a-plane 
+          id="seashell01-2" src="att/Seashell_02.png" transparent="true" 
+          position="1.22259 1 -5.7" rotation="0 -24 0" scale="2.8 2.8 2.8"
+        ></a-plane>
 
-      <a-entity gltf-model="objekti/kauss_01.glb" shadow position="-0.78299 0 -5.26894" rotation="0 29.87974901607243 0" id="kauss"></a-entity>
+        <a-plane 
+          id="seashell01" src="att/Seashell_02.png" transparent="true" 
+          position="-1.02276 0.5 -4.1" rotation="0 33 0" scale="1.4 1.4 1.4"
+        ></a-plane>
+        
 
-
-      
-      <!--VIDE-->
-      <a-plane position="0 0 -4" shadow rotation="-90 0 0" width="100" height="100" color="#7BC8A4"></a-plane>
-      <a-sky color="#ECECEC"></a-sky>
+<!-------->
+<!--VIDE-->
+<!-------->
 
       <a-entity 
-        shadow 
-        gltf-model="objekti/majkubs01.glb" 
-        position="0 0 0" rotation="0 0 0" scale="2 2 2" 
-        lightmap="texture: #roomLightmap; key: majkubs; intensity: 1"
-        animation="property: rotation.y; to: 360; loop: true; dur: 40000; easing: linear" 
+        gltf-model="#kolonnas" 
+        lightmap="texture: #kolonnas_LM; key: Material"
+        rotation="0 90 0"
+        position="0 -0.274 0"
       ></a-entity>
 
+      <a-sky src="att/sky_povray2 copy.webp"></a-sky>
+      <a-plane id="ground" src="att/imgonline-com-ua-TextureSeamless-nV0sOiMzV3.jpg" material="repeat: 250 500" position="0 -0.1 -4" rotation="-90 0 0" width="1000" height="1000"></a-plane>
 
-      <!--Gaismas-->
-     <a-entity light="angle: 23.53; distance: 9.31; intensity: 10; penumbra: 1; type: spot; castShadow: true" position="-0.58884 2.68951 3.43657" rotation="-26.832759461566713 0 0"></a-entity>
-      <a-entity light="color: #53d5fd; intensity: 0.4; type: ambient"></a-entity>
+<!----------->
+<!--gaismas-->
+<!-----------> 
+
+    <a-light type="point" position="0 2 0"></a-light>
+
+<!-------------->
+<!--Navigacija-->
+<!--------------> 
+
+<a-entity 
+  id="pelke" obj-model="obj: obj/pelke_01.obj" 
+  scale="4 4 4" position="0 -2 0"
+></a-entity>
+
+<a-plane 
+id="paklajs" 
+color="red" 
+rotation="-90 0 0" 
+position="0 0 0" 
+scale="2 17 1"></a-plane>
 
 
-      <!--Navigacija -->
+<a-entity camera look-controls wasd-controls="acceleration: 10" navmesh="navmesh: #paklajs" position="0 1.6 0">
 
-      
-      <a-entity camera look-controls wasd-controls="acceleration:10" navmesh="navmesh: #ground-mesh" position="0 1.8 0">
-        <a-plane shadow scale="0.3 0.2 0.2" position="0 -0.1 -0.1" src="att/lobster_claws.png" transparent="true"></a-plane>
-      </a-entity>
+  <a-plane id="claws" src="att/lobster_claws.png" transparent="true" position="0 -0.4 -.5" scale="1 .5 .5"></a-plane>
 
-      <a-plane id="ground-mesh" position="0 .01 0" color="red" rotation="-90 0 0" scale="9 9 9" visible="true"></a-plane>
+</a-entity>
+
+
+
+
+
+
 
     </a-scene>
   </body>
