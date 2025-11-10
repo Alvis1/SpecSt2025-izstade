@@ -7,10 +7,11 @@
 
   <body>
     <a-scene background="color:#ECECEC">
-      <!-- Camera rig (with controlled movement) -->
-      <a-entity forward-back>
-        <a-entity camera></a-entity>
-      </a-entity>
+     <!-- Camera rig (with controlled movement) -->
+<a-entity forward-back>
+  <!-- Adjust fov here (default is ~80) -->
+  <a-entity camera="fov: 30" position="0 0 8"></a-entity>
+</a-entity>
 
       <!-- Ground -->
       <a-plane rotation="-90 0 0" width="20" height="100" color="#ccc"></a-plane>
@@ -29,23 +30,24 @@
       <a-sphere color="#FFF" position="0 1 -12" radius="0.8"
         material="emissive:white; emissiveIntensity:0.6"></a-sphere>
 
-          <!-- GLB asset -->
+          <!-- GLB assets -->
   <a-assets>
         <a-asset-item id="triangle" src="assets/tests_tr.glb"></a-asset-item>
         <a-asset-item id="stairs" src="assets/kapnes.glb"></a-asset-item>
+        <a-asset-item id="trijsturis_2" src="assets/trijsturis_2.glb"></a-asset-item>
   </a-assets>
 
+
+
   <!-- Add the model to the scene -->
-<!-- First model -->
-      <a-entity
-        gltf-model="#triangle"
-        position="0 1.7 -3"
-        scale="5 5 5"
-        rotation="-40.13 -35.18 17.99">
-      </a-entity>
+
 
       <!-- Second model -->
-     <a-entity gltf-model="assets/kapnes.glb" position="-0.11063 0.51057 0.02914" scale="3 3 3" rotation="-2.5089821848778753 -117.69412548679804 -28.414695933922914">
+    <a-entity gltf-model="assets/kapnes.glb" position="1.25823 1.45804 1.08021" scale="3 3 3" rotation="-7.9314547579959855 -121.65440976674232 -38.6752241291257">
+      </a-entity>
+        <!-- third model -->
+     <a-entity gltf-model="assets/trijsturis_2.glb" position="-3.0003 2 -5" rotation="1.3372834938353413 27.33295161671592 -25.045704098553678"></a-entity>
+
       </a-entity>
 
 
