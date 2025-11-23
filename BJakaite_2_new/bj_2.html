@@ -1,16 +1,25 @@
 <html>
   <head>
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
-    <script src="forward-back.js"></script>
-    
+<script src="forward-back.js"></script>
+
   </head>
 
   <body>
     <a-scene background="color:#ECECEC">
-     <!-- Camera rig (with controlled movement) -->
+<!-- Camera rig (with controlled movement) -->
 <a-entity forward-back>
-  <!-- Adjust fov here (default is ~80) -->
-  <a-entity camera="fov: 30" position="0 0 8"></a-entity>
+  <a-entity camera="fov: 30" position="0 0 40">
+
+    <!-- Light follows the camera -->
+    <a-light 
+      type="point" 
+      intensity="10" 
+      distance="20" 
+      position="0 0 0">
+    </a-light>
+
+  </a-entity>
 </a-entity>
 
       <!-- Ground -->
@@ -20,11 +29,56 @@
       <a-box color="#F33" position="0 0.5 5">
         <a-animation attribute="rotation" dur="4000" to="0 360 0" repeat="indefinite"></a-animation>
       </a-box>
+      <!-- Keyboard hint near red cube -->
+<a-entity position="0 3.5 9">
+  <a-plane color="#FFFFFF" opacity="0.9" height="1" width="3"></a-plane>
+  <a-text 
+    value="WS"
+    align="center"
+    color="black"
+    width="4"
+    position="0 0 0.01">
+  </a-text>
+</a-entity>
+
 
       <!-- Yellow cube (ahead, at z=-20) -->
-      <a-box color="#FFD700" position="0 1 -20">
-        <a-animation attribute="scale" dur="3000" dir="alternate" to="1.5 1.5 1.5" repeat="indefinite"></a-animation>
-      </a-box>
+<a-box color="#FFD700" position="0 1 -20">
+  <a-animation 
+    attribute="scale" 
+    dur="3000" 
+    dir="alternate" 
+    to="1.5 1.5 1.5" 
+    repeat="indefinite">
+  </a-animation>
+</a-box>
+
+
+
+      <!-- Keyboard hint after yellow cube -->
+<a-entity position="0 2 -23">
+  <a-plane color="#FFFFFF" opacity="0.9" height="1" width="6"></a-plane>
+  <a-text 
+    value="You’re free to move. Now see what was really here"
+    align="center"
+    color="black"
+    width="5"
+    position="0 0 0.01">
+  </a-text>
+</a-entity>
+
+
+            <!--  Plane with text after red cube -->
+      <a-entity position="0 3.5 20">
+        <a-plane color="#FFFFFF" height="1.2" width="6"></a-plane>
+        <a-text value="Move forward.
+         What you see is all you are allowed for now"
+                align="center"
+                color="#000000"
+                wrap-count="40"
+                position="0 0 0.01">
+        </a-text>
+      </a-entity>
 
       <!-- white sphere -->
       <a-sphere color="#FFF" position="0 1 -12" radius="0.8"
@@ -38,7 +92,12 @@
         <a-asset-item id="cube_ill" src="assets/cube_ill.glb"></a-asset-item>
   </a-assets>
 
-
+<a-plane 
+  src="att/illusion-1.jpg"
+  width="4"
+  height="4"
+  position="0 2 12">
+</a-plane>
 
   <!-- Add the model to the scene -->
 
@@ -50,9 +109,9 @@
      <a-entity gltf-model="assets/trijsturis_2.glb" position="-3.0003 2 -5" rotation="1.3372834938353413 27.33295161671592 -25.045704098553678"></a-entity>
     
     
-<a-entity gltf-model="assets/cube_ill.glb" position="0.55436 1 -1.65207" rotation="68.34928129674617 -28.502931434373064 13.196936895248252" scale="0.2 0.21 0.2"></a-entity>
+<a-entity gltf-model="assets/cube_ill.glb" position="-1.14087 2.01 -2.76207" rotation="-56.31831351458915 11.88772833337432 -146.82731049581506" scale="0.2 0.21 0.2"></a-entity>
 
-      </a-entity>
+
 
 
   </a-entity>
