@@ -1,0 +1,85 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="komponentes/navmesh.js"></script>
+    <script src="komponentes/lightmaps.js"></script>
+
+
+  </head>
+  <body>
+    <a-scene>
+
+<a-assets>
+  <a-asset-item id="kolonnas" src="obj/kolonnas.glb"></a-asset-item>
+  <img id="kolonnas_LM" src="att/kolonnas_lm_02.jpg">
+
+</a-assets>
+
+
+<!-------------------->
+<!--Izstades Objekti-->
+<!-------------------->
+
+        <a-plane 
+          id="seashell01-2" src="att/Seashell_02.png" transparent="true" 
+          position="1.22259 1 -5.7" rotation="0 -24 0" scale="2.8 2.8 2.8"
+        ></a-plane>
+
+        <a-plane 
+          id="seashell01" src="att/Seashell_02.png" transparent="true" 
+          position="-1.02276 0.5 -4.1" rotation="0 33 0" scale="1.4 1.4 1.4"
+        ></a-plane>
+        
+
+<!-------->
+<!--VIDE-->
+<!-------->
+
+      <a-entity 
+        gltf-model="#kolonnas" 
+        lightmap="texture: #kolonnas_LM; key: Material"
+        rotation="0 90 0"
+        position="0 -0.274 0"
+      ></a-entity>
+
+      <a-sky src="att/sky_povray2 copy.webp"></a-sky>
+      <a-plane id="ground" src="att/imgonline-com-ua-TextureSeamless-nV0sOiMzV3.jpg" material="repeat: 250 500" position="0 -0.1 -4" rotation="-90 0 0" width="1000" height="1000"></a-plane>
+
+<!----------->
+<!--gaismas-->
+<!-----------> 
+
+    <a-light type="point" position="0 2 0"></a-light>
+
+<!-------------->
+<!--Navigacija-->
+<!--------------> 
+
+<a-entity 
+  id="pelke" obj-model="obj: obj/pelke_01.obj" 
+  scale="4 4 4" position="0 -2 0"
+></a-entity>
+
+<a-plane 
+id="paklajs" 
+color="red" 
+rotation="-90 0 0" 
+position="0 0 0" 
+scale="2 17 1"></a-plane>
+
+
+<a-entity camera look-controls wasd-controls="acceleration: 10" navmesh="navmesh: #paklajs" position="0 1.6 0">
+
+  <a-plane id="claws" src="att/lobster_claws.png" transparent="true" position="0 -0.4 -.5" scale="1 .5 .5"></a-plane>
+
+</a-entity>
+
+
+
+
+
+
+
+    </a-scene>
+  </body>
+</html>
