@@ -1,20 +1,60 @@
 <html>
     <head>
         <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.6.0/dist/aframe-extras.min.js"></script>
+
+
     </head>
     <body>
         <a-scene>
+
+            <a-entity id="telpa uc">
             <!--Izstades objekti xyz-->
-            <a-box position="-0.00141 1.50604 -4.00369" material="blending: none; color: #5E2D13" scale="4 3 20.1" id="gaitenis"></a-box>
+            <a-box id="gaitenis" position="-0.00141 1.50604 -4.00369" material="side: back; blending: none; color: #5E2D13" scale="4 3 20.1"></a-box>
             <a-box position="0.003 0.898 -13.92209" material="color: #381E06" id="durvis" scale="1 1.8 0.1"></a-box>
-            <a-entity obj-model="mtl: objekti/old_table.mtl; obj: objekti/old_table.obj" material="color: #391a09" id="galds" scale="0.01 0.01 0.01" rotation="0 90 0" position="-1.471 0.01159 -2.47242"></a-entity>
-            <a-entity obj-model="mtl: objekti/old_table.mtl; obj: objekti/old_table.obj" material="color: #391a09" id="galds-2" scale="0.01 0.01 0.01" rotation="0 90 0" position="-1.471 0.01159 -3.75974"></a-entity>
-            <a-entity obj-model="mtl: objekti/old_table.mtl; obj: objekti/old_table.obj" material="color: #391a09" id="galds-3" scale="0.01 0.01 0.01" rotation="0 90 0" position="-1.471 0.01159 -4.97262"></a-entity>
-            <a-entity obj-model="mtl: objekti/water_bottle.mtl; obj: objekti/water_bottle.obj" material="color: #213C42" id="pudele" position="-0.11075 0.85605 -1.57688" rotation="-24.16392205184734 -51.75183988739648 -17.319941189009654"></a-entity>
-            <a-entity obj-model="mtl: objekti/water_dispenser.mtl; obj: objekti/water_dispenser.obj"></a-entity>
+            <a-entity obj-model="mtl: objekti/old_table.mtl; obj: objekti/old_table.obj"
+                material="color: #391a09"
+                id="galds"
+                scale="0.01 0.01 0.01"
+                rotation="0 90 0"
+                position="-1.471 0.01159 -2.47242"></a-entity>
+            <a-entity obj-model="mtl: objekti/old_table.mtl; obj: objekti/old_table.obj" 
+                material="color: #391a09"
+                id="galds-2"
+                scale="0.01 0.01 0.01"
+                rotation="0 90 0"
+                position="-1.471 0.01159 -3.75974"></a-entity>
+            <a-entity obj-model="mtl: objekti/old_table.mtl; obj: objekti/old_table.obj"
+                material="color: #391a09"
+                id="galds-3"
+                scale="0.01 0.01 0.01"
+                rotation="0 90 0"
+                position="-1.471 0.01159 -4.97262"></a-entity>
+            </a-entity>
+             <a-entity> 
+            <a-entity obj-model="mtl: objekti/water_bottle.mtl; obj: objekti/water_bottle.obj"
+                material="color: #213C42"
+                id="pudele"
+                position="-0.11075 0.85605 -1.57688" 
+                rotation="-24 -51 -17"
+                animation="property: position; from: -0.11075 0.85605 -1.57688; to: -0.11075 0.95605 -1.67688; -1.57688; dir: alternate; dur: 2000; easing: linear; loop: true;"
+                animation__2="property: rotation; from: -24 -51 -17; to: -19 -52 -12; dir: alternate; dur: 2000; easing: linear; loop: true;"></a-entity>
+                 </a-entity>
+
+            <a-entity id="water_dispenser
+"
+                obj-model="mtl: objekti/water_dispenser.mtl; obj: objekti/water_dispenser.obj"
+                position="-1.4833 0.1157 -1.43123"
+                rotation="3.346646481359138 70.66002008450877 -4.7251829364438995"></a-entity>
+            </a-entity>    
+
+            <a-entity scale=".1 .1 .1" gltf-model="objekti/kubmusha_01.glb" animation-mixer></a-entity>
+
+    
             <!--Pasaule-->
             <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="20" color="#273024"></a-plane>
             <a-sky color="#213C42"></a-sky>
+
             <!--Kontroles-->
             <a-entity camera="active: true" position="0 1.6 0" wasd-controls="acceleration: 15; fly: false" look-controls="" aframe-injected="" id="pov"></a-entity>
           </a-scene>
