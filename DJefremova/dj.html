@@ -5,6 +5,9 @@ Working code
   <head>
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-event-set-component@5.x.x/dist/aframe-event-set-component.min.js"></script>
+    <script src="scripts/navmesh.js"></script>
+    <script src="scripts/lightmaps.js"></script>
+
      <script>
     AFRAME.registerComponent('toggle-door', {
       schema: {
@@ -50,22 +53,30 @@ Working code
  
 
     <!--izstades objekti-->
-      <a-entity gltf-model="aframe_assets/grida_text_bez_durvim.glb" scale="0.5 0.5 0.5" position="-0.01909 0.45829 0"></a-entity>
+      <a-entity ></a-entity>
       <a-entity gltf-model="aframe_assets/cabinet.glb" scale="3 3 3" position="3.08756 1.65587 0.93647" rotation="0 90 0"></a-entity>
       <a-entity gltf-model="aframe_assets/durtinas.glb" id="cabinet" position="3.08756 1.65587 0.93647" rotation="0 90 0" scale="3 3 3"  toggle-door="openAngle: 90; duration: 500"
         class="clickable"> </a-entity>
-      <a-entity gltf-model="aframe_assets/navmeshh.glb" scale="0.5 0.5 0.5" position="-0.01909 0.45829 0" nav-mesh></a-entity>
+      <a-entity id="navmesh01" gltf-model="aframe_assets/navmeshh.glb" scale="1 1 1" position=""></a-entity>
+      
 
      
       <a-entity gltf-model="aframe_assets/picture.glb" scale="3 3 3" position="3.08756 1.65587 0.93647" rotation="0 90 0"></a-entity>
-      <a-entity light="color: #88a0ce; intensity: 0.16; type: ambient" position="0.19581 2.3903 -1.17906"></a-entity>
-      <a-entity light="color: #a2f8ff; decay: 1.87; intensity: 10; type: point" position="-1.9869 1.40387 -0.91841"></a-entity>
+      <!--<a-entity light="color: #88a0ce; intensity: 0.16; type: ambient" position="0.19581 2.3903 -1.17906"></a-entity>
+      <a-entity light="color: #a2f8ff; decay: 1.87; intensity: 10; type: point" position="-1.9869 1.40387 -0.91841"></a-entity>-->
+
+
+      <a-assets>
+ *      <img id="roomLightmap" src="assets/room-bake.jpg">
+ *      <a-asset-item id="roomModel" src="models/room.glb"></a-asset-item>
+ *    </a-assets>
+ *    <a-entity gltf-model="#roomModel" 
+ *              lightmap="texture: #roomLightmap; key: RoomMaterial">
+ *    </a-entity>
 
 
 
-      <a-camera>
-        <a-cursor></a-cursor>
-      </a-camera>
+       <a-entity camera look-controls wasd-controls="acceleration: 10" navmesh="navmesh: #navmesh01" position="0 1.6 0"></a-entity>
 
     </a-scene>
   </body>
