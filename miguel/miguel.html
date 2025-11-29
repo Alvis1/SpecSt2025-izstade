@@ -4,20 +4,14 @@
   </head>
   <body>
    
-   
-<a-scene keyboard-shortcuts="" screenshot="" xr-mode-ui="" device-orientation-permission-ui="" inspector="">
 <a-scene keyboard-shortcuts="" screenshot="" xr-mode-ui="" device-orientation-permission-ui="">
-
+  <a-scene physics="gravity: -9.8"></a-scene>
 
 <a-entity gltf-model="objects\cueva 2411.glb" scale="5 5 5" position="-16.58 90 -62.25"></a-entity>
 <a-entity gltf-model="objects\cueva 2411.glb" scale="6.18 5 5" position="34.29881 -100 -38.38705" rotation="-0.03241 -49.41723 -26.50665"></a-entity>
-
-
 <a-entity gltf-model="objects\cueva 2411.glb" scale="3.49 3.74 0.58" position="-110 19.54 -23.25207" rotation="-173.85 -137.8 31.043240000000004"></a-entity>
 <a-entity gltf-model="objects\cueva 2411.glb" scale="5.59 5 5" position="-98.4 35 -65.4748" rotation="1.5600000000000003 48.90253 1.50775"></a-entity>
 <a-entity gltf-model="objects\cueva 2411.glb" scale="5 6.35 5" position="-41.78898 -61.73 -57.02345" rotation="3.400504514101436 43.02569266755404 104.13679813841252"></a-entity>
-
-
 <a-entity gltf-model="objects\cueva 2411.glb" scale="5 5 5" position="0 -14.16779 -1.55"></a-entity>
 <a-entity gltf-model="objects\cueva 2411.glb" scale="5.72 5 5" position="35.03881 18.59184 -38.38705" rotation="26.717594944745418 -33.217228172709476 -25.186651716155858"></a-entity>
 <a-entity gltf-model="objects\cueva 2411.glb" scale="5 5 5" position="-41.57841 -15.40806 -1.55" rotation="2.0895770788421126 96.04262336659939 47.846559555784786"></a-entity>
@@ -25,19 +19,40 @@
 <a-entity gltf-model="objects\cueva 2411.glb" scale="5 5 5" position="4.86254 -69.97942 -13.3948" rotation="-74.36591110341494 74.38252687947373 4.937750278437435"></a-entity>
 <a-entity gltf-model="objects\cueva 2411.glb" scale="5 5 5" position="-21.44898 42.95721 -42.99345" rotation="3.400504514101436 43.02569266755404 104.13679813841252"></a-entity>
 
-<a-plane position="0 -7.62458 0" rotation="-90 0 0" width="400" height="400" color="#9BC9A4" material="opacity: 0.56; color: #371818" geometry="height: 300; width: 10"></a-plane>
 <a-entity gltf-model="objects\esfera version 1.glb"></a-entity>
-     
-     
-      <a-sky color="#ECECEC" material="color: #080c16" position="0 -0.08631 0"></a-sky>
-    </a-scene>
-     
-      <a-sky color="#ECECEC" material="color: #080c16"></a-sky>
+
+<a-entity id="floor" geometry="depth: 100; width: 5.77" material="color: #552929" position="0 -4 0" static-body=""></a-entity>
+
+ <a-entity geometry="primitive: box; width: 2; height: 0.2; depth: 100"
+                material="color: #888"
+                position="0 0 0"
+                static-body></a-entity>
+                <a-entity geometry="primitive: box; width: 0.2; height: 2; depth: 100"
+                material="opacity: 0; transparent: true"
+                position="-1.1 1 0"
+                static-body></a-entity>
+
+  <a-entity geometry="primitive: box; width: 0.2; height: 2; depth: 100"
+                material="opacity: 0; transparent: true"
+                position="1.1 1 0"
+                static-body></a-entity>
+  <a-entity id="rig" dynamic-body position="0 1.6 -40">
+        <a-camera 
+          look-controls
+          wasd-controls="acceleration: 80"
+          move-controls="strafeLeft: false; strafeRight: false; reverse: false">
+        </a-camera>
+      </a-entity>
+
+<a-entity id="rig" position="0 1.6 0" dynamic-body>
+  <a-camera wasd-controls look-controls></a-camera>
+</a-entity>
+
+<a-plane position="0 -7.62458 0" rotation="-90 0 0" width="400" height="400" color="#9BC9A4" material="opacity: 0.56; color: #371818" geometry="height: 300; width: 10"></a-plane>
+ 
+<a-sky color="#ECECEC" material="color: #080c16" position="0 -0.08631 0"></a-sky>
 
     </a-scene>
-      <a-plane shadow="" position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
 
-
-    </a-scene>
   </body>
 </html>
