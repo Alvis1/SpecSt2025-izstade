@@ -21,34 +21,44 @@
 
 <a-entity gltf-model="objects\esfera version 1.glb"></a-entity>
 
-<a-entity id="floor" geometry="depth: 100; width: 5.77" material="color: #552929" position="0 -4 0" static-body=""></a-entity>
+<a-entity id="rig" 
+          position="0 1.6 -40" 
+          movement-controls="constrainToNavMesh: false"
+          dynamic-body>
 
- <a-entity geometry="primitive: box; width: 2; height: 0.2; depth: 100"
+  <a-camera 
+    look-controls
+    keyboard-controls="enabled: true"
+    movement-controls></a-camera>
+
+</a-entity>
+
+<!-- Pasarela -->
+      <a-entity geometry="primitive: box; width: 2; height: 0.2; depth: 100"
                 material="color: #888"
                 position="0 0 0"
                 static-body></a-entity>
-                <a-entity geometry="primitive: box; width: 0.2; height: 2; depth: 100"
-                material="opacity: 0; transparent: true"
-                position="-1.1 1 0"
-                static-body></a-entity>
+                
+<!-- Pared izquierda -->
+<a-box width="0.2" height="2" depth="100"
+       position="-1.1 1 0"
+       static-body
+       material="opacity: 0; transparent: true"></a-box>
 
-  <a-entity geometry="primitive: box; width: 0.2; height: 2; depth: 100"
-                material="opacity: 0; transparent: true"
-                position="1.1 1 0"
-                static-body></a-entity>
-  <a-entity id="rig" dynamic-body position="0 1.6 -40">
-        <a-camera 
-          look-controls
-          wasd-controls="acceleration: 80"
-          move-controls="strafeLeft: false; strafeRight: false; reverse: false">
-        </a-camera>
-      </a-entity>
+<!-- Pared derecha -->
+<a-box width="0.2" height="2" depth="100"
+       position="1.1 1 0"
+       static-body
+       material="opacity: 0; transparent: true"></a-box>
 
-<a-entity id="rig" position="0 1.6 0" dynamic-body>
-  <a-camera wasd-controls look-controls></a-camera>
+<a-entity id="rig" dynamic-body position="0 1.6 -40">
+  <a-camera
+    look-controls
+    movement-controls="strafeEnabled: false">  <!-- AD desactivado -->
+  </a-camera>
 </a-entity>
 
-<a-plane position="0 -7.62458 0" rotation="-90 0 0" width="400" height="400" color="#9BC9A4" material="opacity: 0.56; color: #371818" geometry="height: 300; width: 10"></a-plane>
+
  
 <a-sky color="#ECECEC" material="color: #080c16" position="0 -0.08631 0"></a-sky>
 
