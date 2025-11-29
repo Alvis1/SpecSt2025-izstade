@@ -1,58 +1,21 @@
 <html>
   <head>
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@5.x.x/dist/aframe-event-set-component.min.js"></script>
+    <script src="scripts/navmesh.js"></script>
+    <script src="scripts/lightmaps.js"></script>
+
   </head>
   <body>
-   
-    <a-scene keyboard-shortcuts="" screenshot="" xr-mode-ui="" device-orientation-permission-ui="">
-<a-scene keyboard-shortcuts="" screenshot="" xr-mode-ui="" device-orientation-permission-ui="" inspector="">
 
-
-<a-scene keyboard-shortcuts="" screenshot="" xr-mode-ui="" device-orientation-permission-ui="">
-<a-scene keyboard-shortcuts="" screenshot="" xr-mode-ui="" device-orientation-permission-ui="" inspector="">
-
-
-
-
- 
-<a-entity gltf-model="objects\cueva 2411.glb" scale="5 5 5" position="-16.58 90 -62.25"></a-entity>
-<a-entity gltf-model="objects\cueva 2411.glb" scale="6.18 5 5" position="34.29881 -100 -38.38705" rotation="-0.03241 -49.41723 -26.50665"></a-entity>
-
-
-<a-entity gltf-model="objects\cueva 2411.glb" scale="3.49 3.74 0.58" position="-110 19.54 -23.25207" rotation="-173.85 -137.8 31.043240000000004"></a-entity>
-<a-entity gltf-model="objects\cueva 2411.glb" scale="5.59 5 5" position="-98.4 35 -65.4748" rotation="1.5600000000000003 48.90253 1.50775"></a-entity>
-<a-entity gltf-model="objects\cueva 2411.glb" scale="5 6.35 5" position="-41.78898 -61.73 -57.02345" rotation="3.400504514101436 43.02569266755404 104.13679813841252"></a-entity>
-
-
-<a-entity gltf-model="objects\cueva 2411.glb" scale="5 5 5" position="0 -15.40806 -1.55"></a-entity>
-<a-entity gltf-model="objects\cueva 2411.glb" scale="5.72 5 5" position="35.03881 18.59184 -38.38705" rotation="26.717594944745418 -33.217228172709476 -25.186651716155858"></a-entity>
-<a-entity gltf-model="objects\cueva 2411.glb" scale="5 5 5" position="-41.57841 -15.40806 -1.55" rotation="2.0895770788421126 96.04262336659939 47.846559555784786"></a-entity>
-<html>
-  <head>
-    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
-  </head>
-  <body>
-   
-   
-<a-scene keyboard-shortcuts="" screenshot="" xr-mode-ui="" device-orientation-permission-ui="" inspector="">
-<a-scene keyboard-shortcuts="" screenshot="" xr-mode-ui="" device-orientation-permission-ui="">
-
-
+ <a-scene keyboard-shortcuts="" screenshot="" xr-mode-ui="" device-orientation-permission-ui="">
 
 
 <a-entity gltf-model="objects\cueva 2411.glb" scale="5 5 5" position="-16.58 90 -62.25"></a-entity>
 <a-entity gltf-model="objects\cueva 2411.glb" scale="6.18 5 5" position="34.29881 -100 -38.38705" rotation="-0.03241 -49.41723 -26.50665"></a-entity>
-
-
-
-
 <a-entity gltf-model="objects\cueva 2411.glb" scale="3.49 3.74 0.58" position="-110 19.54 -23.25207" rotation="-173.85 -137.8 31.043240000000004"></a-entity>
 <a-entity gltf-model="objects\cueva 2411.glb" scale="5.59 5 5" position="-98.4 35 -65.4748" rotation="1.5600000000000003 48.90253 1.50775"></a-entity>
 <a-entity gltf-model="objects\cueva 2411.glb" scale="5 6.35 5" position="-41.78898 -61.73 -57.02345" rotation="3.400504514101436 43.02569266755404 104.13679813841252"></a-entity>
-
-
-
-
 <a-entity gltf-model="objects\cueva 2411.glb" scale="5 5 5" position="0 -14.16779 -1.55"></a-entity>
 <a-entity gltf-model="objects\cueva 2411.glb" scale="5.72 5 5" position="35.03881 18.59184 -38.38705" rotation="26.717594944745418 -33.217228172709476 -25.186651716155858"></a-entity>
 <a-entity gltf-model="objects\cueva 2411.glb" scale="5 5 5" position="-41.57841 -15.40806 -1.55" rotation="2.0895770788421126 96.04262336659939 47.846559555784786"></a-entity>
@@ -65,16 +28,15 @@
 <a-entity gltf-model="objects\esfera version 1.glb"></a-entity>
      
      
-      <a-sky color="#ECECEC" material="color: #080c16" position="0 -0.08631 0"></a-sky>
-    </a-scene>
-     
-      <a-sky color="#ECECEC" material="color: #080c16"></a-sky>
+<a-sky color="#ECECEC" material="color: #080c16" position="0 -0.08631 0"></a-sky>
+
+<a-plane shadow="" position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
 
 
-    </a-scene>
-      <a-plane shadow="" position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
 
 
+      
+<a-entity camera look-controls wasd-controls="acceleration: 30" navmesh="navmesh: #navmesh01" position="0 1.6 150"></a-entity>
 
 
     </a-scene>
