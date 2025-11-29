@@ -1,11 +1,15 @@
 <html>
   <head>
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@5.x.x/dist/aframe-event-set-component.min.js"></script>
+    <script src="scripts/navmesh.js"></script>
+    <script src="scripts/lightmaps.js"></script>
+
   </head>
   <body>
-   
-<a-scene keyboard-shortcuts="" screenshot="" xr-mode-ui="" device-orientation-permission-ui="">
-  <a-scene physics="gravity: -9.8"></a-scene>
+
+ <a-scene keyboard-shortcuts="" screenshot="" xr-mode-ui="" device-orientation-permission-ui="">
+
 
 <a-entity gltf-model="objects\cueva 2411.glb" scale="5 5 5" position="-16.58 90 -62.25"></a-entity>
 <a-entity gltf-model="objects\cueva 2411.glb" scale="6.18 5 5" position="34.29881 -100 -38.38705" rotation="-0.03241 -49.41723 -26.50665"></a-entity>
@@ -19,50 +23,22 @@
 <a-entity gltf-model="objects\cueva 2411.glb" scale="5 5 5" position="4.86254 -69.97942 -13.3948" rotation="-74.36591110341494 74.38252687947373 4.937750278437435"></a-entity>
 <a-entity gltf-model="objects\cueva 2411.glb" scale="5 5 5" position="-21.44898 42.95721 -42.99345" rotation="3.400504514101436 43.02569266755404 104.13679813841252"></a-entity>
 
-<a-entity gltf-model="objects\esfera version 1.glb"></a-entity>
 
-<a-entity id="rig" 
-          position="0 1.6 -40" 
-          movement-controls="constrainToNavMesh: false"
-          dynamic-body>
-
-  <a-camera 
-    look-controls
-    keyboard-controls="enabled: true"
-    movement-controls></a-camera>
-
-</a-entity>
-
-<!-- Pasarela -->
-      <a-entity geometry="primitive: box; width: 2; height: 0.2; depth: 100"
-                material="color: #888"
-                position="0 0 0"
-                static-body></a-entity>
-                
-<!-- Pared izquierda -->
-<a-box width="0.2" height="2" depth="100"
-       position="-1.1 1 0"
-       static-body
-       material="opacity: 0; transparent: true"></a-box>
-
-<!-- Pared derecha -->
-<a-box width="0.2" height="2" depth="100"
-       position="1.1 1 0"
-       static-body
-       material="opacity: 0; transparent: true"></a-box>
-
-<a-entity id="rig" dynamic-body position="0 1.6 -40">
-  <a-camera
-    look-controls
-    movement-controls="strafeEnabled: false">  <!-- AD desactivado -->
-  </a-camera>
-</a-entity>
-
-
- 
+<a-plane position="0 -7.62458 0" rotation="-90 0 0" width="400" height="400" color="#9BC9A4" material="opacity: 0.56; color: #371818" geometry="height: 300; width: 10" scale="1 1.57 1"></a-plane><a-entity gltf-model="objects\esfera version 1.glb"></a-entity>
+     
 <a-sky color="#ECECEC" material="color: #080c16" position="0 -0.08631 0"></a-sky>
 
-    </a-scene>
 
+
+
+      
+<a-entity camera look-controls wasd-controls="acceleration: 40" navmesh="navmesh: #navmesh01" position="0 1.6 160"></a-entity>
+
+
+    </a-scene>
   </body>
 </html>
+
+
+
+
