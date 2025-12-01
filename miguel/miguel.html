@@ -12,7 +12,7 @@
       <!-- GRUPO CUEVAS -->
       <a-entity id="grupoCuevas"
         animation="property: rotation; from: 0 0 0; to: 0 0 360; loop: true; dur: 250000; easing: linear;">
-           <a-entity gltf-model="objects/cueva 2411.glb" scale="5 5 5" position="-16.58 90 -62.25"></a-entity>
+          <a-entity gltf-model="objects/cueva 2411.glb" scale="5 5 5" position="-16.58 90 -62.25"></a-entity>
           <a-entity gltf-model="objects/cueva 2411.glb" scale="6.18 5 5" position="34.29881 -100 -38.38705" rotation="-0.03241 -49.41723 -26.50665"></a-entity>
           <a-entity gltf-model="objects/cueva 2411.glb" scale="3.49 3.74 0.58" position="-110 19.54 -23.25207" rotation="-173.85 -137.8 31.04324"></a-entity>
           <a-entity gltf-model="objects/cueva 2411.glb" scale="5.59 5 5" position="-98.4 35 -65.4748" rotation="1.56 48.90253 1.50775"></a-entity>
@@ -26,16 +26,16 @@
       </a-entity>
 
       <!-- PLANO -->
-      <a-plane id="floor"
-               position="0 -7.62458 0" rotation="-90 0 0" width="400" height="400"
+      <a-plane id="floor" position="0 -15 120" rotation="-90 0 0" width="7" height="300"
                color="#9BC9A4" material="opacity: 0.56; color: #371818"
-               geometry="height: 300; width: 10" scale="1 1.57 1">
+               scale="1 1.57 1">
       </a-plane>
 
       <!-- NAVMESH (límite de movimiento) -->
-<a-entity id="navmesh01" geometry="primitive: plane; height: 230; width: 7" rotation="-90 0 0" position="0 0 115.76882" visible="false"></a-entity>
-      
-<!-- ESFERA -->
+      <a-entity id="navmesh01" geometry="primitive: plane; width: 7; height: 300"
+                rotation="-90 0 0" position="0 -16 120"></a-entity>
+
+      <!-- ESFERA -->
       <a-entity gltf-model="objects/esfera version 1.glb"
                 position="0 0 0" rotation="0 0 0"
                 animation="property: rotation; from: 0 0 0; to: 360 360 360; dir: alternate; dur: 7000; easing: linear; loop: true;">
@@ -46,26 +46,21 @@
 
       <!-- CÁMARA -->
       <a-entity camera listener look-controls wasd-controls="acceleration: 40"
-                navmesh="navmesh: #navmesh01" position="0 1.6 160">
+                navmesh="navmesh: #navmesh01" position="0 -12 120">
       </a-entity>
 
       <!-- SONIDO -->
-      <a-entity id="audio" sound="src: url(miguel\objects\audio_sstudies.ogg); autoplay: false; loop: true"></a-entity>
+      <a-entity id="audio" sound="src: url(objects/audio_sstudies.ogg); autoplay: false; loop: true"></a-entity>
 
     </a-scene>
 
     <script>
-      // Detecta el primer clic en cualquier parte de la escena para activar el audio
+      // Reproducir audio al primer clic en cualquier parte
       const scene = document.querySelector("a-scene");
-      const audioEntity = document.querySelector("#audio");
+      const audioEntity = document.querySelector("audio_sstudies");
 
       function startAudio() {
-        // Reproduce el sonido después de un pequeño retraso
-        setTimeout(() => {
-          audioEntity.components.sound.playSound();
-        }, 200);
-
-        // Elimina el listener para que no se active más de una vez
+        setTimeout(() => { audioEntity.components.sound.playSound(); }, 200);
         scene.removeEventListener("click", startAudio);
       }
 
