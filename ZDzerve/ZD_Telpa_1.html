@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.6.0/dist/aframe-extras.min.js"></script>
+        
+
+    </head>
+    <body>
+        <a-scene>
+            <!--Asseti-->
+            <a-assets>
+                <a-asset-item id="telpa1_1" src="objekti/telpa1_1.glb"></a-asset-item>
+                <a-asset-item id="durvis" src="objekti/durvis.glb"></a-asset-item>
+            </a-assets>
+            <!--Objekti_aina-->
+            <a-entity id="telpa_1">
+            <a-entity id="telpa" gltf-model="objekti/telpa1_1.glb" animation-mixer ></a-entity> 
+            </a-entity>
+            <!-- remove the fixed link and rely on the click handler to do random navigation -->
+            <a-entity id="doorLink">
+                <a-entity gltf-model="#durvis" animation-mixer></a-entity>
+            </a-entity>
+            <!--Pasaule-->
+            <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="20" color="#273024"></a-plane>
+            <a-sky color="#213C42"></a-sky>
+
+            <!--Kontroles-->
+            <a-entity camera="active: true" position="0 1.6 0" wasd-controls="acceleration: 15; fly: false" look-controls="" aframe-injected="" id="pov">
+                <a-entity cursor="fuse: true; rayOrigin: mouse" position="0 0 -1" geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.02" material="color: white; shader: flat">
+                </a-entity>
+            </a-entity>
+          </a-scene>
+          <!--Randomizer-->
+          <script>
+            (function () {
+  const pages = [
+    'ZD_Telpa_2.html',
+    'ZD_Telpa_4.html',
+    'ZD_Telpa_5.html'
+  ];
+
+  const door = document.getElementById('doorLink');
+  if (!door) return;
+  door.addEventListener('click', function (evt) {
+    // prevent default navigation and stop propagation if any component tries to use it
+    if (evt && evt.preventDefault) evt.preventDefault();
+    if (evt && evt.stopPropagation) evt.stopPropagation();
+
+    // pick a random page; avoid staying on the same page if there are multiple
+    let i = Math.floor(Math.random() * pages.length);
+    const curr = window.location.pathname.split('/').pop();
+    if (pages.length > 1 && pages[i] === curr) {
+      // choose a different page (simple re-roll once)
+      i = (i + 1) % pages.length;
+    }
+    window.location.href = pages[i];
+  });
+})();
+          </script>
+    </body>
+</html>
