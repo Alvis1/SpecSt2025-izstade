@@ -1,6 +1,7 @@
 <html>
   <head>
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="komponentes/navmesh.js"></script>
   </head>
   <body>
     <a-scene>
@@ -24,19 +25,19 @@
       ></a-entity>
 
       <a-entity 
-        gltf-model="/Objects/masinite.glb" 
+        gltf-model="Objects/masinite.glb" 
         rotation="0 90 0"
         position="0 -0.274 0"
       ></a-entity>
 
       <a-entity 
-        gltf-model="/Objects/augs1.glb" 
+        gltf-model="Objects/augs1.glb" 
         rotation="0 90 0"
         position="0 -0.274 0"
       ></a-entity>
 
       <a-entity 
-        gltf-model="/Objects/augs2.glb" 
+        gltf-model="Objects/augs2.glb" 
         rotation="0 90 0"
         position="0 -0.274 0"
       ></a-entity>
@@ -50,6 +51,16 @@
         position="0 -0.274 0"
       ></a-entity>
 
+      <!-------------->
+      <!--Navigacija-->
+      <!--------------> 
+
+      <a-entity 
+        id="grida" obj-model="obj: Objects/navmesh.glb" 
+        scale="4 4 4" position="0 -2 0"
+      ></a-entity>
+
+      <a-entity camera look-controls wasd-controls="acceleration: 10" navmesh="navmesh: #grida" position="0 1.6 0"></a-entity>
 
     </a-scene>
   </body>
