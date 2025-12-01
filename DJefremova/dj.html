@@ -5,69 +5,226 @@ Working code
   <head>
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-event-set-component@5.x.x/dist/aframe-event-set-component.min.js"></script>
-     <script>
-    AFRAME.registerComponent('toggle-door', {
-      schema: {
-        openAngle: {type: 'number', default: 90},
-        duration: {type: 'number', default: 500}
-      },
-      init: function() {
-        this.isOpen = false;
-        this.el.addEventListener('click', this.toggleDoor.bind(this));
-      },
-      toggleDoor: function() {
-        const el = this.el;
-        const data = this.data;
-        
-        if (this.isOpen) {
-          // Close door
-          el.setAttribute('animation', {
-            property: 'rotation',
-            to: '0 0 0',
-            dur: data.duration,
-            easing: 'easeInOutQuad'
-          });
-        } else {
-          // Open door
-          el.setAttribute('animation', {
-            property: 'rotation',
-            to: `0 ${data.openAngle} 0`,
-            dur: data.duration,
-            easing: 'easeInOutQuad'
-          });
-        }
-        
-        this.isOpen = !this.isOpen;
-      }
-    });
-  </script>
+    <script src="scripts/navmesh.js"></script>
+    <script src="scripts/lightmaps.js"></script>
   </head>
 
   <!--  script for rotation -->
     
   <body>
-    <a-scene>
- 
-
+    
+    <a-scene light="defaultLightsEnabled: false">
+<a-entity light="distance: 1.44; intensity: 2.15; type: point" position="1.36817 1.8826 -4.3884"></a-entity>
+      <a-entity light="distance: 3; intensity: 1.24; type: point" position="-0.17934 2.95443 -3.88829"></a-entity>
+      <a-entity light="distance: 3; intensity: 1.24; type: point" position="-0.17934 2.95443 -1.70782"></a-entity>
+      <a-entity light="distance: 3; intensity: 1.08; type: point" position="3.52993 2.83089 0.84136"></a-entity>
+      <a-entity light="angle: 24.78; decay: 5.02; distance: 3.85; intensity: 1.1; penumbra: 1; type: spot" position="0.37673 1.54947 -4.28818"></a-entity>
+<a-entity geometry="primitive: plane" position="3.54507 3.92131 -2.17554" rotation="90 0.6 0" scale="10 10 1" material="offset: 0.95 0; anisotropy: 10.01; color: white, emissiveIntensity:5; displacementScale: 0; displacementBias: 0.52; emissive: #d5bdac; emissiveIntensity: 0.26; metalness: 1; roughness: 1"></a-entity>     
     <!--izstades objekti-->
-      <a-entity gltf-model="aframe_assets/grida_text_bez_durvim.glb" scale="0.5 0.5 0.5" position="-0.01909 0.45829 0"></a-entity>
-      <a-entity gltf-model="aframe_assets/cabinet.glb" scale="3 3 3" position="3.08756 1.65587 0.93647" rotation="0 90 0"></a-entity>
+
+      <a-entity ></a-entity>
+      
+<a-entity id="navmesh01" gltf-model="aframe_assets/navmeshh.glb" scale="0.93 1 1" position="0.12655 0 0" visible="false"></a-entity>
+
+<a-entity gltf-model="aframe_assets/loga_skats.glb" position="-1.34141 2.41591 -2.47951" rotation="0 90 0" scale="2 2 2"></a-entity>
+<a-entity geometry="" position="-1.31906 2.22369 -2.25027" scale="0.06 2.37 0.11" material="color: white"></a-entity>
+     
+      <!--<a-entity light="color: #88a0ce; intensity: 0.16; type: ambient" position="0.19581 2.3903 -1.17906"></a-entity>
+      <a-entity light="color: #a2f8ff; decay: 1.87; intensity: 10; type: point" position="-1.9869 1.40387 -0.91841"></a-entity>-->
+
+  
+<!--video tekstura durvim-->>
+<a-assets>
+  <video id="myVideo" src="aframe_assets/aframe_video.mp4" autoplay loop="true" muted playsinline></video>
+</a-assets>
+<a-plane src="#myVideo" width="2" height="2" rotation="0 270 0" position="6.74512 1.51928 -2.08281" scale="0.69 1.51 2" material="shader: flat"></a-plane>
+    <!--clickable objekti--> 
+<a-entity gltf-model="aframe_assets/glezna1.glb" 
+          position="0.09525 2.52539 1.76047" 
+          rotation="0 0 90" scale="1 0.65 1"
+          class="interactable"
+          highlight-on-raycast 
+          show-on-interact="imgSrc: aframe_assets/glezna1.jpg">
+</a-entity>  
+
+<a-entity gltf-model="aframe_assets/glezna2.glb" 
+          position="2.70526 2.86061 -5.84974" 
+          scale="0.6 0.6 1"
+          class="interactable"
+          highlight-on-raycast 
+          show-on-interact="imgSrc: aframe_assets/glezna2.jpg" scale="0.7 0.7 0.7">
+</a-entity>
+
+<a-entity gltf-model="aframe_assets/pc.glb" id="pc" 
+          position="0.3908 1.19092 -5.06859" 
+          rotation="0 180 0" scale="1.3 1.3 1.3"
+          class="interactable"
+          highlight-on-raycast 
+          show-on-interact="imgSrc: aframe_assets/pc.jpg">
+</a-entity>
+
+<a-entity gltf-model="aframe_assets/picture.glb" 
+          scale="3 3 3" 
+          position="3.08756 1.65587 0.93647" 
+          rotation="0 90 0"
+          class="interactable"
+          highlight-on-raycast 
+          show-on-interact="imgSrc: aframe_assets/picture.png">
+</a-entity>
+
+
+
+<!--rotejamas durvis-->>
       <a-entity gltf-model="aframe_assets/durtinas.glb" id="cabinet" position="3.08756 1.65587 0.93647" rotation="0 90 0" scale="3 3 3"  toggle-door="openAngle: 90; duration: 500"
         class="clickable"> </a-entity>
-      <a-entity gltf-model="aframe_assets/navmeshh.glb" scale="0.5 0.5 0.5" position="-0.01909 0.45829 0" nav-mesh></a-entity>
-
-     
-      <a-entity gltf-model="aframe_assets/picture.glb" scale="3 3 3" position="3.08756 1.65587 0.93647" rotation="0 90 0"></a-entity>
-      <a-entity light="color: #88a0ce; intensity: 0.16; type: ambient" position="0.19581 2.3903 -1.17906"></a-entity>
-      <a-entity light="color: #a2f8ff; decay: 1.87; intensity: 10; type: point" position="-1.9869 1.40387 -0.91841"></a-entity>
 
 
 
-      <a-camera>
-        <a-cursor></a-cursor>
-      </a-camera>
+
+
+
+      <a-assets>
+ *      <img id="roomLightmap" src="aframe_assets/room1_lightmap.jpg">
+ *      <a-asset-item id="roomModel" src="aframe_assets/room.glb"></a-asset-item>
+ *    </a-assets>
+ *    <a-entity gltf-model="#roomModel" 
+ *                        lightmap="texture: #roomLightmap; key: M_telpa02; intensity: 1.5">"
+ *    </a-entity>
+ 
+
+
+
+       <a-entity camera look-controls wasd-controls="acceleration: 10" navmesh="navmesh: #navmesh01" position="0 1.6 0" raycaster="objects: .interactable; far: 3" ></a-entity>
+
+
+
+       
+<script>
+  // -------------------------------
+  // Highlight component (glow on hover)
+  // -------------------------------
+
+AFRAME.registerComponent('highlight-on-raycast', {
+  schema: { 
+    color: { type: 'color', default: '#ff69b4' }, // pink glow
+    text: { type: 'string', default: 'Press E to view' }
+  },
+  init: function () {
+    this.hovered = false;
+    this.originalScale = null;
+    this.originalEmissives = [];
+    this.camera = document.querySelector('[camera]');
+    this.overlayText = null;
+
+    // Wait for model to load
+    this.el.addEventListener('model-loaded', () => {
+      this.originalScale = this.el.object3D.scale.clone();
+
+      // Store original emissive colors of all meshes
+      this.el.object3D.traverse(node => {
+        if (node.isMesh) {
+          this.originalEmissives.push({ mesh: node, color: node.material.emissive.clone() });
+        }
+      });
+    });
+  },
+  tick: function () {
+    if (!this.originalScale) return; // model not loaded yet
+
+    const intersects = this.camera.components.raycaster.intersections || [];
+    const isHover = intersects.length && intersects[0].object.el === this.el;
+
+    if (isHover && !this.hovered) {
+      // Scale up
+      this.el.object3D.scale.copy(this.originalScale.clone().multiplyScalar(1.05));
+
+      // Set emissive glow
+      this.originalEmissives.forEach(obj => {
+        obj.mesh.material.emissive = new THREE.Color(this.data.color);
+        obj.mesh.material.emissiveIntensity = 0.3;
+      });
+
+      // Add floating text
+      if (!this.overlayText) {
+        this.overlayText = document.createElement('a-text');
+        this.overlayText.setAttribute('value', this.data.text);
+        this.overlayText.setAttribute('align', 'center');
+        this.overlayText.setAttribute('color', '#FFFFAA');
+        this.overlayText.setAttribute('position', '0 1 0'); // adjust as needed
+        this.overlayText.setAttribute('side', 'double');
+        this.el.appendChild(this.overlayText);
+      }
+
+      this.hovered = true;
+
+    } else if (!isHover && this.hovered) {
+      // Restore scale
+      this.el.object3D.scale.copy(this.originalScale);
+
+      // Restore original emissives
+      this.originalEmissives.forEach(obj => {
+        obj.mesh.material.emissive.copy(obj.color);
+      });
+
+      // Remove floating text
+      if (this.overlayText) {
+        this.el.removeChild(this.overlayText);
+        this.overlayText = null;
+      }
+
+      this.hovered = false;
+    }
+  }
+});
+
+
+
+
+
+  // -------------------------------
+  // Show overlay on 'E', remove on 'Esc'
+  // -------------------------------
+  AFRAME.registerComponent('show-on-interact', {
+  schema: { imgSrc: { type: 'string' } },
+  init: function () {
+    const el = this.el;
+    const camera = document.querySelector('[camera]');
+    let overlay = null;
+
+    window.addEventListener('keydown', (e) => {
+      const raycaster = camera.components.raycaster;
+      const intersects = raycaster ? raycaster.intersections : [];
+
+      if ((e.key === 'e' || e.key === 'E') && intersects.length && intersects[0].object.el === el) {
+        if (!overlay) {
+          overlay = document.createElement('a-plane');
+          overlay.setAttribute('src', this.data.imgSrc);
+          overlay.setAttribute('position', '0 0 -1');
+          overlay.setAttribute('width', '1'); 
+          overlay.setAttribute('height', '1.3'); 
+          overlay.setAttribute('material', 'shader: flat; transparent: true; depthTest: false; emissive: #fff;');
+          overlay.setAttribute('id', 'overlay');
+          camera.appendChild(overlay);
+        }
+      }
+
+      if (e.key === 'Escape' && overlay) {
+        camera.removeChild(overlay);
+        overlay = null;
+      }
+    });
+  }
+});
+
+</script>
 
     </a-scene>
+
+</a-scene>
+
+
+
+ 
   </body>
 </html>
 

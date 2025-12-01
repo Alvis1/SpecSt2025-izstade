@@ -1,9 +1,9 @@
 <html>
   <head>
-    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
     <script src="komponentes/navmesh.js"></script>
     <script src="komponentes/lightmaps.js"></script>
-
+    <script src="komponentes/cloak.js"></script>
 
   </head>
   <body>
@@ -11,6 +11,7 @@
 
 <a-assets>
   <a-asset-item id="kolonnas" src="obj/kolonnas.glb"></a-asset-item>
+  <a-asset-item id="domatajs" src="obj/Rodin_01.glb"></a-asset-item>
   <img id="kolonnas_LM" src="att/kolonnas_lm_02.jpg">
 
 </a-assets>
@@ -31,9 +32,30 @@
         ></a-plane>
         
 
+        
+
 <!-------->
 <!--VIDE-->
 <!-------->
+
+  <a-entity 
+    id="cloak" 
+    geometry="primitive: plane" 
+    position="0.00594 2.27988 -5.90751" 
+    scale="7.33976 0.7151 1" 
+    cloak
+    rotation="0 0 12.044718769240164"
+  ></a-entity>
+
+  <a-entity 
+    id="cloakframe" 
+    geometry="primitive: plane" 
+    position="0.00594 2.27988 -5.92" 
+    scale="7.5 0.75 1"
+    rotation="0 0 12.044718769240164"
+    color="black"
+  ></a-entity>
+
 
       <a-entity 
         gltf-model="#kolonnas" 
@@ -41,6 +63,15 @@
         rotation="0 90 0"
         position="0 -0.274 0"
       ></a-entity>
+
+  <a-entity 
+    id="dmtjs" 
+    gltf-model="obj/Rodin_01.glb" 
+    rotation="0 -41.32114322703984 0" 
+    position="0 -0.274 -6.91075"
+  ></a-entity>
+
+  <a-entity light="angle: 21.24; color: #ffc4ab; distance: 7.63; intensity: 100; penumbra: 0.32; type: spot" position="0 6.21093 -10.85271" rotation="-24.56785729741457 179.9998479605043 179.9998479605043" id="statgaisma"></a-entity>
 
       <a-sky src="att/sky_povray2 copy.webp"></a-sky>
       <a-plane id="ground" src="att/imgonline-com-ua-TextureSeamless-nV0sOiMzV3.jpg" material="repeat: 250 500" position="0 -0.1 -4" rotation="-90 0 0" width="1000" height="1000"></a-plane>

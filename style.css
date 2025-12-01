@@ -118,7 +118,7 @@ h4 {
 }
 
 /* Generic button and input styling */
-button:not(.button):not(.infobutton),
+button:not(.button):not(.infobutton):not(.home-button):not(.info-pdf-button):not(.pdf-close-button):not(.pdf-nav-button),
 input {
   font-family: inherit;
   font-size: 100%;
@@ -131,7 +131,7 @@ input {
   cursor: pointer;
 }
 
-button:not(.button):not(.infobutton):hover {
+button:not(.button):not(.infobutton):not(.home-button):not(.info-pdf-button):not(.pdf-close-button):not(.pdf-nav-button):hover {
   background: var(--color-button-hover);
 }
 
@@ -175,11 +175,170 @@ header {
   margin: 0 auto;
 }
 
-.info-button-container {
+/* Bottom buttons container (Sākums + INFO) */
+.bottom-buttons-container {
   position: fixed;
   left: 10px;
   bottom: 10px;
   z-index: 1001;
+  display: flex;
+  gap: 10px;
+}
+
+.home-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: var(--button-padding);
+  font-size: var(--button-font-size);
+  font-weight: bold;
+  border-radius: var(--button-border-radius);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+  font-family: var(--font-family);
+  background-color: var(--color-button-bg);
+  color: var(--color-text-main);
+}
+
+.home-button:hover {
+  background-color: var(--color-button-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.home-button .arrow {
+  font-size: 1.2em;
+}
+
+.info-pdf-button {
+  display: inline-block;
+  padding: var(--button-padding);
+  font-size: var(--button-font-size);
+  font-weight: bold;
+  border-radius: var(--button-border-radius);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+  font-family: var(--font-family);
+  background-color: #FFFF00 !important;
+  color: var(--color-text-main);
+}
+
+.info-pdf-button:hover {
+  background-color: #ffff66 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* ====================================================================
+   PDF VIEWER OVERLAY
+   ==================================================================== */
+
+.pdf-viewer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pdf-viewer-container {
+  position: relative;
+  width: 66.66%;
+  height: 80%;
+  background-color: #333;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.pdf-close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background-color: #FFFF00;
+  color: var(--color-text-main);
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  line-height: 1;
+  padding: 0;
+  padding-bottom: 2px;
+}
+
+.pdf-close-button:hover {
+  background-color: #ffff66;
+  transform: scale(1.1);
+}
+
+.pdf-nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--color-button-bg);
+  color: var(--color-text-main);
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pdf-nav-button:hover {
+  background-color: var(--color-button-hover);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.pdf-prev {
+  left: 15px;
+}
+
+.pdf-next {
+  right: 15px;
+}
+
+#pdfCanvas {
+  max-width: calc(100% - 120px);
+  max-height: calc(100% - 60px);
+  border-radius: 4px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.pdf-page-info {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(255, 255, 255, 0.9);
+  color: var(--color-text-main);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
 }
 
 main {
@@ -227,7 +386,7 @@ iframe {
 }
 
 .button.active {
-  background-color: var(--color-secondary);
+  background-color: #FFFF00;
   border-color: var(--color-text-white);
 }
 
@@ -285,5 +444,48 @@ iframe {
   
   .year {
     font-size: 2rem !important;
+  }
+  
+  /* Bottom buttons responsive */
+  .bottom-buttons-container {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .home-button,
+  .info-pdf-button {
+    font-size: 14px;
+    padding: 8px 14px;
+  }
+  
+  /* PDF viewer responsive */
+  .pdf-viewer-container {
+    width: 95%;
+    height: 90%;
+    padding: 10px;
+  }
+  
+  .pdf-nav-button {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+  
+  .pdf-prev {
+    left: 5px;
+  }
+  
+  .pdf-next {
+    right: 5px;
+  }
+  
+  .pdf-close-button {
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+  }
+  
+  #pdfCanvas {
+    max-width: calc(100% - 90px);
   }
 }
