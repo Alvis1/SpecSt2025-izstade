@@ -56,11 +56,14 @@
       <!--------------> 
 
       <a-entity 
-        id="grida" obj-model="obj: Objects/navmesh.glb" 
-        scale="4 4 4" position="0 -2 0"
-      ></a-entity>
+      id="grida" obj-model="obj: Objects/grida.obj" 
+      rotation="0 90 0"
+      position="0 -0.274 0"
+    ></a-entity>
+        
 
       <a-entity camera look-controls wasd-controls="acceleration: 10" navmesh="navmesh: #grida" position="0 1.6 0"></a-entity>
+      
 
     </a-scene>
   </body>
