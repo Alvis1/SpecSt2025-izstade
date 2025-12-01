@@ -24,8 +24,14 @@
 <a-entity gltf-model="objects\cueva 2411.glb" scale="5 5 5" position="-21.44898 42.95721 -42.99345" rotation="3.400504514101436 43.02569266755404 104.13679813841252"></a-entity>
 
 
-<a-plane position="0 -7.62458 0" rotation="-90 0 0" width="400" height="400" color="#9BC9A4" material="opacity: 0.56; color: #371818" geometry="height: 300; width: 10" scale="1 1.57 1"></a-plane><a-entity gltf-model="objects\esfera version 1.glb"></a-entity>
-     
+<a-plane position="0 -7.62458 0" rotation="-90 0 0" width="400" height="400" color="#9BC9A4" material="opacity: 0.56; color: #371818" geometry="height: 300; width: 10" scale="1 1.57 1"></a-plane>
+
+<a-entity gltf-model="objects\esfera version 1.glb"
+  position="0 0 0" 
+  rotation="0 0 0"
+ animation= "property: rotation; from: 0 0 0; to: 360 360 360; dir: alternate; dur: 7000; easing: linear; loop: true;"></a-entity>
+</a-entity>
+  
 <a-sky color="#ECECEC" material="color: #080c16" position="0 -0.08631 0"></a-sky>
 
 
