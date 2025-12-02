@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SpecSt2025 Virtuālās Izstādes</title>
-    
     <link rel="stylesheet" href="style.css" />
     <style>
     
@@ -13,37 +12,81 @@
 <body>
     <header>
         <nav id="buttonContainer" aria-label="Projektu izvēlne">
-            <button class="button" onclick="loadPage('2KMezavilka/2km.html')" aria-label="Apskatīt 2KMezavilka projektu">2KMezavilka</button>
-            <button class="button" onclick="loadPage('BJakaite_2_new/bj_2.html')" aria-label="Apskatīt B. Jakaite projektu">B. Jakaite</button>
-            <button class="button" onclick="loadPage('DJefremova/dj.html')" aria-label="Apskatīt D. Jefremova projektu">D. Jefremova</button>
-            <button class="button" onclick="loadPage('ESundukova/es.html')" aria-label="Apskatīt E. Sundukova projektu">E. Sundukova</button>
-            <button class="button" onclick="loadPage('Kristers/KJ.html')" aria-label="Apskatīt Kristers J. projektu">Kristers J.</button>
-            <button class="button" onclick="loadPage('LKIjaba/LKI.html')" aria-label="Apskatīt LKI Jaba projektu">LKI Jaba</button>
-            <button class="button" onclick="loadPage('miguel/mgp.html')" aria-label="Apskatīt Miguel projektu">Miguel</button>
-            <button class="button" onclick="loadPage('ZDzerve/ZD.html')" aria-label="Apskatīt Z. Dzerve projektu">Z. Dzerve</button>
-            <button class="button" onclick="loadPage('_piemers/index.html')" aria-label="Apskatīt piemēru">Piemērs</button>
+            <button class="button" onclick="loadPage('2KMezavilka/2km.html', this)" aria-label="Apskatīt 2KMezavilka projektu">2KMezavilka</button>
+            <button class="button" onclick="loadPage('BJakaite_2_new/bj_2.html', this)" aria-label="Apskatīt B. Jakaite projektu">B. Jakaite</button>
+            <button class="button" onclick="loadPage('DJefremova/dj.html', this)" aria-label="Apskatīt D. Jefremova projektu">D. Jefremova</button>
+            <button class="button" onclick="loadPage('ESundukova/es.html', this)" aria-label="Apskatīt E. Sundukova projektu">E. Sundukova</button>
+            <button class="button" onclick="loadPage('Kristers/KJ.html', this)" aria-label="Apskatīt Kristers J. projektu">Kristers J.</button>
+            <button class="button" onclick="loadPage('LKIjaba/LKI.html', this)" aria-label="Apskatīt LKI Jaba projektu">LKI Jaba</button>
+            <button class="button" onclick="loadPage('miguel/mgp.html', this)" aria-label="Apskatīt Miguel projektu">Miguel</button>
+            <button class="button" onclick="loadPage('ZDzerve/ZD_Telpa_1.html', this)" aria-label="Apskatīt Z. Dzerve projektu">Z. Dzerve</button>
+            <button class="button" onclick="loadPage('_piemers/index.html', this)" aria-label="Apskatīt piemēru">Piemērs</button>
         </nav>
     </header>
   
-    <div id="infoButtonContainer" class="info-button-container">
-        <button class="infobutton" onclick="loadPage('info.html')" aria-label="Apskatīt informāciju par izstādi">INFO</button>
+    <div id="bottomButtonsContainer" class="bottom-buttons-container">
+        <button class="home-button" onclick="goHome()" aria-label="Atgriezties sākumā">
+            <span class="arrow">←</span> Sākums
+        </button>
+        <button class="info-pdf-button" onclick="openPdfViewer()" aria-label="Apskatīt projekta informāciju">INFO</button>
+    </div>
+
+    <!-- PDF Viewer Overlay -->
+    <div id="pdfViewerOverlay" class="pdf-viewer-overlay" style="display: none;">
+        <div class="pdf-viewer-container">
+            <button class="pdf-close-button" onclick="closePdfViewer()" aria-label="Aizvērt PDF skatītāju">×</button>
+            <button class="pdf-nav-button pdf-prev" onclick="prevPdfPage()" aria-label="Iepriekšējā lapa">←</button>
+            <canvas id="pdfCanvas"></canvas>
+            <button class="pdf-nav-button pdf-next" onclick="nextPdfPage()" aria-label="Nākamā lapa">→</button>
+            <div class="pdf-page-info">Lapa <span id="currentPage">1</span> no <span id="totalPages">1</span></div>
+        </div>
     </div>
 
     <main>
         <iframe id="myIframe" src="info.html" title="Izstādes saturs" aria-label="Izstādes galvenais saturs"></iframe>
     </main>
 
+    <!-- PDF.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    
     <script>
-        function loadPage(url) {
+        // PDF mapping for each project
+        const projectPdfMap = {
+            '2KMezavilka/2km.html': null,
+            'BJakaite_2_new/bj_2.html': null,
+            'DJefremova/dj.html': 'DJefremova/Exhibition idea_dajana_jefremova.pdf',
+            'ESundukova/es.html': 'ESundukova/elina-idejas-prezentacija.pdf',
+            'Kristers/KJ.html': null,
+            'LKIjaba/LKI.html': 'LKIjaba/Virtuālā izstāde.pdf',
+            'miguel/mgp.html': 'miguel/exposición virtual Speciality Studies.pdf',
+            'ZDzerve/ZD.html': null,
+            '_piemers/index.html': null,
+            'info.html': null
+        };
+        
+        let currentProject = 'info.html';
+        let pdfDoc = null;
+        let currentPageNum = 1;
+        let pageRendering = false;
+        
+        function loadPage(url, clickedButton) {
             const iframe = document.getElementById('myIframe');
-            const buttons = document.querySelectorAll('.button, .infobutton');
+            const buttons = document.querySelectorAll('.button');
             
             // Add loading state
             iframe.style.opacity = '0.5';
             
             // Update button states
             buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            if (clickedButton && clickedButton.classList.contains('button')) {
+                clickedButton.classList.add('active');
+            }
+            
+            // Track current project
+            currentProject = url;
+            
+            // Update info button visibility based on PDF availability
+            updateInfoButtonState();
             
             // Load new page
             iframe.src = url;
@@ -52,18 +95,127 @@
             iframe.onload = function() {
                 iframe.style.opacity = '1';
             };
-            
-            // Handle loading errors
-            iframe.onerror = function() {
-                iframe.style.opacity = '1';
-                console.error('Failed to load page:', url);
-            };
         }
+        
+        function goHome() {
+            const iframe = document.getElementById('myIframe');
+            const buttons = document.querySelectorAll('.button');
+            
+            // Remove active state from all project buttons
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Load info page
+            currentProject = 'info.html';
+            iframe.src = 'info.html';
+            updateInfoButtonState();
+        }
+        
+        function updateInfoButtonState() {
+            const infoBtn = document.querySelector('.info-pdf-button');
+            const homeBtn = document.querySelector('.home-button');
+            const hasPdf = projectPdfMap[currentProject] !== null && projectPdfMap[currentProject] !== undefined;
+            const isHome = currentProject === 'info.html';
+            
+            // Show/hide Sākums button based on whether we're on home page
+            homeBtn.style.display = isHome ? 'none' : 'inline-flex';
+            
+            // Update INFO button state based on PDF availability
+            infoBtn.style.opacity = hasPdf ? '1' : '0.5';
+            infoBtn.style.cursor = hasPdf ? 'pointer' : 'not-allowed';
+        }
+        
+        function openPdfViewer() {
+            const pdfPath = projectPdfMap[currentProject];
+            if (!pdfPath) {
+                return;
+            }
+            
+            const overlay = document.getElementById('pdfViewerOverlay');
+            overlay.style.display = 'flex';
+            
+            // Load PDF
+            loadPdf(pdfPath);
+        }
+        
+        function closePdfViewer() {
+            const overlay = document.getElementById('pdfViewerOverlay');
+            overlay.style.display = 'none';
+            pdfDoc = null;
+            currentPageNum = 1;
+        }
+        
+        async function loadPdf(url) {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+            
+            try {
+                pdfDoc = await pdfjsLib.getDocument(url).promise;
+                document.getElementById('totalPages').textContent = pdfDoc.numPages;
+                currentPageNum = 1;
+                renderPage(currentPageNum);
+            } catch (error) {
+                console.error('Error loading PDF:', error);
+                alert('Nevar ielādēt PDF failu.');
+                closePdfViewer();
+            }
+        }
+        
+        async function renderPage(num) {
+            if (pageRendering) return;
+            pageRendering = true;
+            
+            const page = await pdfDoc.getPage(num);
+            const canvas = document.getElementById('pdfCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Calculate scale to fit container
+            const container = document.querySelector('.pdf-viewer-container');
+            const containerWidth = container.clientWidth - 120; // Account for nav buttons
+            const containerHeight = container.clientHeight - 60; // Account for page info
+            
+            const viewport = page.getViewport({ scale: 1 });
+            const scaleX = containerWidth / viewport.width;
+            const scaleY = containerHeight / viewport.height;
+            const scale = Math.min(scaleX, scaleY, 2); // Max scale of 2
+            
+            const scaledViewport = page.getViewport({ scale });
+            
+            canvas.height = scaledViewport.height;
+            canvas.width = scaledViewport.width;
+            
+            await page.render({
+                canvasContext: ctx,
+                viewport: scaledViewport
+            }).promise;
+            
+            pageRendering = false;
+            document.getElementById('currentPage').textContent = num;
+        }
+        
+        function prevPdfPage() {
+            if (currentPageNum <= 1) return;
+            currentPageNum--;
+            renderPage(currentPageNum);
+        }
+        
+        function nextPdfPage() {
+            if (!pdfDoc || currentPageNum >= pdfDoc.numPages) return;
+            currentPageNum++;
+            renderPage(currentPageNum);
+        }
+        
+        // Keyboard navigation for PDF
+        document.addEventListener('keydown', function(e) {
+            const overlay = document.getElementById('pdfViewerOverlay');
+            if (overlay.style.display === 'none') return;
+            
+            if (e.key === 'ArrowLeft') prevPdfPage();
+            if (e.key === 'ArrowRight') nextPdfPage();
+            if (e.key === 'Escape') closePdfViewer();
+        });
         
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
-            // Set initial active state for INFO button
-            document.querySelector('.infobutton').classList.add('active');
+            updateInfoButtonState();
         });
     </script>
 </body>

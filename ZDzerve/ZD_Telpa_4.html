@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.6.0/dist/aframe-extras.min.js"></script> 
+    </head>
+    <body>
+        <a-scene>
+            <!--Asseti-->
+            <a-assets>
+                <a-asset-item id="durvis_baltas" src="objekti/Durvis_baltas.glb"></a-asset-item>
+            </a-assets>
+            <!--Objekti-->
+            <a-sky color="#000000"></a-sky>
+            <a-entity id="doorLink" position="0 0 -100">
+                <a-entity gltf-model="#durvis_baltas" animation-mixer></a-entity>
+            </a-entity>
+            <!--Kontroles-->
+            <a-entity camera="active: true" 
+            position="0 1.6 0" 
+            wasd-controls="acceleration: 15; fly: false" 
+            look-controls="" 
+            aframe-injected="" 
+            id="pov">
+                <a-entity cursor="fuse: false; rayOrigin: mouse" 
+                position="0 0 5" 
+                geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.02" 
+                material="color: white; shader: flat">
+                </a-entity>
+            </a-entity> 
+        </a-scene>
+        <script>
+            (function () {
+  const pages = [
+    'ZD_Telpa_2.html',
+    'ZD_Telpa_1.html',
+    'ZD_Telpa_5.html'
+  ];
+
+  const door = document.getElementById('doorLink');
+  if (!door) return;
+  door.addEventListener('click', function (evt) {
+    // prevent default navigation and stop propagation if any component tries to use it
+    if (evt && evt.preventDefault) evt.preventDefault();
+    if (evt && evt.stopPropagation) evt.stopPropagation();
+
+    // pick a random page; avoid staying on the same page if there are multiple
+    let i = Math.floor(Math.random() * pages.length);
+    const curr = window.location.pathname.split('/').pop();
+    if (pages.length > 1 && pages[i] === curr) {
+      // choose a different page (simple re-roll once)
+      i = (i + 1) % pages.length;
+    }
+    window.location.href = pages[i];
+  });
+})();
+          </script>
+    </body>
+</html>

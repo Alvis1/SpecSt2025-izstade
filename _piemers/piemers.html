@@ -3,6 +3,7 @@
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
     <script src="komponentes/navmesh.js"></script>
     <script src="komponentes/lightmaps.js"></script>
+    <script src="komponentes/cloak.js"></script>
 
 
   </head>
@@ -20,6 +21,8 @@
 <!--Izstades Objekti-->
 <!-------------------->
 
+        <a-entity 
+
         <a-plane 
           id="seashell01-2" src="att/Seashell_02.png" transparent="true" 
           position="1.22259 1 -5.7" rotation="0 -24 0" scale="2.8 2.8 2.8"
@@ -31,6 +34,7 @@
         ></a-plane>
         
 
+
 <!-------->
 <!--VIDE-->
 <!-------->
@@ -41,6 +45,7 @@
         rotation="0 90 0"
         position="0 -0.274 0"
       ></a-entity>
+<a-entity id="cloak" geometry="primitive: plane" position="0 2.305 -4.289" scale="7.33976 1.92371 1" cloak=""></a-entity>
 
       <a-sky src="att/sky_povray2 copy.webp"></a-sky>
       <a-plane id="ground" src="att/imgonline-com-ua-TextureSeamless-nV0sOiMzV3.jpg" material="repeat: 250 500" position="0 -0.1 -4" rotation="-90 0 0" width="1000" height="1000"></a-plane>
