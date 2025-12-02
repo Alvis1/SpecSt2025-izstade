@@ -24,12 +24,7 @@
         <a-entity gltf-model="objects/cueva 2411.glb" scale="5 5 5" position="-21.44 42.95 -42.99" rotation="3.4 43.02 104.13"></a-entity>
       </a-entity>
 
-      <!-- NAVMESH -->
-      <a-entity id="navmeshh" gltf-model="miguel/objects/espacionavmesh.obj" rotation="0 0 0"></a-entity>
-
-      <!-- ESCENARIO -->
-      <a-entity id="escenario" gltf-model="objects/escenario.glb" position="1 -14 368.31" rotation="0 0 0" scale="0.7 0.7 0.7"></a-entity>
-
+     
       <!-- ESFERA -->
       <a-entity gltf-model="objects/esfera version 1.glb" position="0 0 0" 
                 animation="property: rotation; from: 0 0 0; to: 360 360 360; dir: alternate; dur: 7000; easing: linear; loop: true;">
@@ -40,7 +35,7 @@
       <a-sky color="#080c16"></a-sky>
 
       <!-- CÁMARA -->
-      <a-entity camera look-controls wasd-controls="acceleration: 10" navmesh="navmesh: #navmeshh" position="0 1.6 250"></a-entity>
+      <a-entity camera look-controls wasd-controls="acceleration: 10" navmesh="navmesh: #navmeshh" position="0 1.6 150"></a-entity>
 
       <!-- AUDIO -->
       <a-entity id="audio" sound="loop: true; src: objects/audio_sstudies.ogg; volume: 1"></a-entity>
