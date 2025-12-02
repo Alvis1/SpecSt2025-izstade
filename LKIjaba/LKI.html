@@ -4,52 +4,59 @@
     <script src="komponentes/navmesh.js"></script>
   </head>
   <body>
-    <a-scene>
+    <a-scene renderer="antialias: false; physicallyCorrectLights: false">
 
-
-      
+      <!-- Preload all assets (using lighter _02 versions) -->
+      <a-assets timeout="30000">
+        <a-asset-item id="tatoo01" src="Objects/tatoo02.glb"></a-asset-item>
+        <a-asset-item id="objekti01" src="Objects/objekti_02.glb"></a-asset-item>
+        <a-asset-item id="masinite" src="Objects/masinite.glb"></a-asset-item>
+        <a-asset-item id="augs1" src="Objects/augs1.glb"></a-asset-item>
+        <a-asset-item id="augs2" src="Objects/augs2.glb"></a-asset-item>
+        <a-asset-item id="telpa01" src="Objects/telpa_02.glb"></a-asset-item>
+      </a-assets>
       
       <!--Objekti-->
 
 
       <a-entity 
-        gltf-model="Objects/tatoo01.glb" 
+        gltf-model="#tatoo01" 
         rotation="0 90 0"
         position="0 -0.274 0"
       ></a-entity>
 
       <a-entity 
-        gltf-model="Objects/objekti_01.glb" 
+        gltf-model="#objekti01" 
         rotation="0 90 0"
         position="0 -0.274 0"
       ></a-entity>
 
       <a-entity 
-        gltf-model="Objects/masinite.glb" 
+        gltf-model="#masinite" 
         rotation="0 90 0"
         position="0 -0.274 0"
-        animation__masinite="dir:  alternate; elasticity: 400; loop: 100000; property: position; from: 0.000 -0.083 0.000; to: 0.000 -0.264 0.000; dur: 2000; easing: linear; round: false; isRawProperty: false; autoplay: true; elasticity: 401.23"
+        animation__masinite="dir: alternate; loop: true; property: position; from: 0 -0.083 0; to: 0 -0.264 0; dur: 2000; easing: linear"
       ></a-entity>
 
       <a-entity 
-        gltf-model="Objects/augs1.glb" 
+        gltf-model="#augs1" 
         rotation="0 90 0"
         position="0 -0.274 0"
-        animation__augs="easing: linear; dir: alternate; elasticity: 400; loop: 10000; from: -0.112 -0.245 -0.035; to: -0.112 0.392-0.035; property: position; dur: 2000"
+        animation__augs="easing: linear; dir: alternate; loop: true; from: -0.112 -0.245 -0.035; to: -0.112 0.392 -0.035; property: position; dur: 2000"
       ></a-entity>
 
       <a-entity 
-        gltf-model="Objects/augs2.glb" 
+        gltf-model="#augs2" 
         rotation="0 90 0"
         position="0 -0.274 0"
-        animation__augs2="from: 0.000 1.081 0.000; to: 0.000 -0.200 0.000; type: position; dir: alternate; property: position; loop: 10000; isRawProperty: true; dur: 2000; elasticity: 0"
+        animation__augs2="from: 0 1.081 0; to: 0 -0.200 0; dir: alternate; property: position; loop: true; dur: 2000"
       ></a-entity>
       
       <!--Pasaule-->
 
 
       <a-entity 
-        gltf-model="Objects/telpa_01.glb" 
+        gltf-model="#telpa01" 
         rotation="0 90 0"
         position="0 -0.274 0"
       ></a-entity>
@@ -58,21 +65,15 @@
       <!--Navigacija-->
       <!--------------> 
         
-      <a-entity id="grida" obj-model="Objects/grida.obj" ></a-entity>
-      <a-entity camera look-controls wasd-controls="acceleration: 10" navmesh="navmesh: #grida" position="0 1.6 -5"></a-entity>
-      <a-entity id="grida" gltf-model="Objects/gridaredz.glb" position="-0.04718 -0.25188 0.14483" rotation="0 90 0" visible="false"></a-entity>
+      <a-entity id="navmesh-grida" obj-model="obj: Objects/grida.obj"></a-entity>
+      <a-entity camera look-controls wasd-controls="acceleration: 10" navmesh="navmesh: #navmesh-grida" position="0 1.6 -5"></a-entity>
 
 
       <!--Gaisma-->
 
       <a-entity light="color: #e17014; type: ambient" data-aframe-default-light="" aframe-injected="" position="0 3.02768 3.45506"></a-entity>
       <a-entity light="color: #a8baff; decay: 2.31; intensity: 4.38; type: point" position="-2.19394 2.41277 -5.32939"></a-entity>
-      <a-entity light="color: #ab0d0d; decay: 0.44; intensity: 3.93; type: point; castShadow: true" position="0.33725 1.76906 3.58546" rotation="-28.10873647132306 110.97447646550377 -127.24876967839965"></a-entity>
-      
-<<<<<<< HEAD
-=======
-      
->>>>>>> 3f8a9bd6fdc067e475746ecae171db00d7e20ffb
+      <a-entity light="color: #ab0d0d; decay: 0.44; intensity: 3.93; type: point" position="0.33725 1.76906 3.58546"></a-entity>
 
     </a-scene>
   </body>

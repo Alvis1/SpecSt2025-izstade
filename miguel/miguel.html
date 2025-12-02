@@ -7,26 +7,33 @@
     <script src="scripts/navmesh.js"></script>
   </head>
   <body>
-    <a-scene>
+    <a-scene renderer="antialias: true; colorManagement: true">
+      <!-- PRELOAD ASSETS -->
+      <a-assets timeout="30000">
+        <a-asset-item id="cueva-model" src="objects/cueva 2411.glb"></a-asset-item>
+        <a-asset-item id="esfera-model" src="objects/esfera version 1.glb"></a-asset-item>
+        <audio id="audio-src" src="objects/audio_sstudies.ogg" preload="auto"></audio>
+      </a-assets>
+
       <!-- GRUPO CUEVAS -->
       <a-entity id="grupoCuevas" 
-                animation="property: rotation; from: 0 0 0; to: 0 0 360; loop: true; dur: 250000; easing: linear;">
-        <a-entity gltf-model="objects/cueva 2411.glb" scale="5 5 5" position="-16.58 90 -62.25"></a-entity>
-        <a-entity gltf-model="objects/cueva 2411.glb" scale="6.18 5 5" position="34.29881 -100 -38.38705" rotation="-0.03 -49.41 -26.5"></a-entity>
-        <a-entity gltf-model="objects/cueva 2411.glb" scale="3.49 3.74 0.58" position="-110 19.54 -23.25" rotation="-173.85 -137.8 31.04"></a-entity>
-        <a-entity gltf-model="objects/cueva 2411.glb" scale="5.59 5 5" position="-98.4 35 -65.47" rotation="1.56 48.9 1.5"></a-entity>
-        <a-entity gltf-model="objects/cueva 2411.glb" scale="5 6.35 5" position="-41.78 -61.73 -57.02" rotation="3.4 43.02 104.13"></a-entity>
-        <a-entity gltf-model="objects/cueva 2411.glb" scale="5 5 5" position="0 -14.16 -1.55"></a-entity>
-        <a-entity gltf-model="objects/cueva 2411.glb" scale="5.72 5 5" position="35.03 18.59 -38.38" rotation="26.71 -33.21 -25.18"></a-entity>
-        <a-entity gltf-model="objects/cueva 2411.glb" scale="5 5 5" position="-41.57 -15.4 -1.55" rotation="2.08 96.04 47.84"></a-entity>
-        <a-entity gltf-model="objects/cueva 2411.glb" scale="5 5 5" position="38.89 -42.54 -9.63" rotation="-51.95 -78.08 31.4"></a-entity>
-        <a-entity gltf-model="objects/cueva 2411.glb" scale="5 5 5" position="4.86 -69.97 -13.39" rotation="-74.36 74.38 4.93"></a-entity>
-        <a-entity gltf-model="objects/cueva 2411.glb" scale="5 5 5" position="-21.44 42.95 -42.99" rotation="3.4 43.02 104.13"></a-entity>
+                animation="property: rotation; from: 0 0 0; to: 0 0 360; loop: true; dur: 250000; easing: linear">
+        <a-entity gltf-model="#cueva-model" scale="5 5 5" position="-16.58 90 -62.25"></a-entity>
+        <a-entity gltf-model="#cueva-model" scale="6.18 5 5" position="34.29881 -100 -38.38705" rotation="-0.03 -49.41 -26.5"></a-entity>
+        <a-entity gltf-model="#cueva-model" scale="3.49 3.74 0.58" position="-110 19.54 -23.25" rotation="-173.85 -137.8 31.04"></a-entity>
+        <a-entity gltf-model="#cueva-model" scale="5.59 5 5" position="-98.4 35 -65.47" rotation="1.56 48.9 1.5"></a-entity>
+        <a-entity gltf-model="#cueva-model" scale="5 6.35 5" position="-41.78 -61.73 -57.02" rotation="3.4 43.02 104.13"></a-entity>
+        <a-entity gltf-model="#cueva-model" scale="5 5 5" position="0 -14.16 -1.55"></a-entity>
+        <a-entity gltf-model="#cueva-model" scale="5.72 5 5" position="35.03 18.59 -38.38" rotation="26.71 -33.21 -25.18"></a-entity>
+        <a-entity gltf-model="#cueva-model" scale="5 5 5" position="-41.57 -15.4 -1.55" rotation="2.08 96.04 47.84"></a-entity>
+        <a-entity gltf-model="#cueva-model" scale="5 5 5" position="38.89 -42.54 -9.63" rotation="-51.95 -78.08 31.4"></a-entity>
+        <a-entity gltf-model="#cueva-model" scale="5 5 5" position="4.86 -69.97 -13.39" rotation="-74.36 74.38 4.93"></a-entity>
+        <a-entity gltf-model="#cueva-model" scale="5 5 5" position="-21.44 42.95 -42.99" rotation="3.4 43.02 104.13"></a-entity>
       </a-entity>
     
       <!-- ESFERA -->
-      <a-entity gltf-model="objects/esfera version 1.glb" position="0 0 0" 
-                animation="property: rotation; from: 0 0 0; to: 360 360 360; dir: alternate; dur: 7000; easing: linear; loop: true;">
+      <a-entity gltf-model="#esfera-model" position="0 0 0" 
+                animation="property: rotation; from: 0 0 0; to: 360 360 360; dir: alternate; dur: 7000; easing: linear; loop: true">
       </a-entity>
 
       <!-- LUZ -->
@@ -37,20 +44,15 @@
       <a-entity camera look-controls wasd-controls="acceleration: 10" navmesh="navmesh: #navmeshh" position="0 1.6 150"></a-entity>
 
       <!-- AUDIO -->
-      <a-entity id="audio" sound="loop: true; src: objects/audio_sstudies.ogg; volume: 1"></a-entity>
+      <a-entity id="audio" sound="src: #audio-src; loop: true; volume: 1"></a-entity>
 
     </a-scene>
 
     <script>
-      const scene = document.querySelector("a-scene");
-      const audioEntity = document.querySelector("#audio");
-
-      function startAudio() {
-        setTimeout(() => audioEntity.components.sound.playSound(), 200);
-        scene.removeEventListener("click", startAudio);
-      }
-
-      scene.addEventListener("click", startAudio);
+      document.querySelector("a-scene").addEventListener("click", function startAudio() {
+        this.removeEventListener("click", startAudio);
+        document.querySelector("#audio").components.sound.playSound();
+      });
     </script>
   </body>
 </html>
