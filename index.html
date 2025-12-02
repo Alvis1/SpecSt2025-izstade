@@ -17,10 +17,9 @@
             <button class="button" onclick="loadPage('DJefremova/dj.html', this)" aria-label="Apskatīt D. Jefremova projektu">D. Jefremova</button>
             <button class="button" onclick="loadPage('ESundukova/es.html', this)" aria-label="Apskatīt E. Sundukova projektu">E. Sundukova</button>
             <button class="button" onclick="loadPage('Kristers/KJ.html', this)" aria-label="Apskatīt Kristers J. projektu">Kristers J.</button>
-            <button class="button" onclick="loadPage('LKIjaba/LKI.html', this)" aria-label="Apskatīt LKI Jaba projektu">LKI Jaba</button>
+            <button class="button" onclick="loadPage('LKIjaba/LKI.html', this)" aria-label="Apskatīt LKI Ijaba projektu">LKI Ijaba</button>
             <button class="button" onclick="loadPage('miguel/mgp.html', this)" aria-label="Apskatīt Miguel projektu">Miguel</button>
             <button class="button" onclick="loadPage('ZDzerve/ZD_Telpa_1.html', this)" aria-label="Apskatīt Z. Dzerve projektu">Z. Dzerve</button>
-            <button class="button" onclick="loadPage('_piemers/index.html', this)" aria-label="Apskatīt piemēru">Piemērs</button>
         </nav>
     </header>
   
@@ -29,6 +28,10 @@
             <span class="arrow">←</span> Sākums
         </button>
         <button class="info-pdf-button" onclick="openPdfViewer()" aria-label="Apskatīt projekta informāciju">INFO</button>
+    </div>
+
+    <div id="navigationHint" class="navigation-hint" style="display: none;">
+        Pārvietošanās: W A S D taustiņi | Skatīšanās: peles kreisā poga + kustība
     </div>
 
     <!-- PDF Viewer Overlay -->
@@ -53,14 +56,13 @@
         // PDF mapping for each project
         const projectPdfMap = {
             '2KMezavilka/2km.html': null,
-            'BJakaite_2_new/bj_2.html': null,
+            'BJakaite_2_new/bj_2.html': 'BJakaite_2_new/betija_apraksts.pdf',
             'DJefremova/dj.html': 'DJefremova/Exhibition idea_dajana_jefremova.pdf',
             'ESundukova/es.html': 'ESundukova/elina-idejas-prezentacija.pdf',
-            'Kristers/KJ.html': null,
-            'LKIjaba/LKI.html': 'LKIjaba/Virtuālā izstāde.pdf',
-            'miguel/mgp.html': 'miguel/exposición virtual Speciality Studies.pdf',
-            'ZDzerve/ZD.html': null,
-            '_piemers/index.html': null,
+            'Kristers/KJ.html': 'Kristers/Kristers izstade.pdf',
+            'LKIjaba/LKI.html': 'LKIjaba/linda_ijaba_kas3_izstades_prezentacija.pdf',
+            'miguel/mgp.html': 'miguel/FINAL PDF SPECIALITY STUDIES.pdf',
+            'ZDzerve/ZD_Telpa_1.html': null,
             'info.html': null
         };
         
@@ -113,11 +115,15 @@
         function updateInfoButtonState() {
             const infoBtn = document.querySelector('.info-pdf-button');
             const homeBtn = document.querySelector('.home-button');
+            const navigationHint = document.getElementById('navigationHint');
             const hasPdf = projectPdfMap[currentProject] !== null && projectPdfMap[currentProject] !== undefined;
             const isHome = currentProject === 'info.html';
             
             // Show/hide Sākums button based on whether we're on home page
             homeBtn.style.display = isHome ? 'none' : 'inline-flex';
+            
+            // Show/hide navigation hint based on whether we're on home page
+            navigationHint.style.display = isHome ? 'none' : 'block';
             
             // Update INFO button state based on PDF availability
             infoBtn.style.opacity = hasPdf ? '1' : '0.5';

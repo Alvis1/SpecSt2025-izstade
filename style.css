@@ -489,3 +489,34 @@ iframe {
     max-width: calc(100% - 90px);
   }
 }
+
+/* ====================================================================
+   NAVIGATION HINT
+   ==================================================================== */
+
+.navigation-hint {
+  position: fixed;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: var(--color-text-white);
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: var(--font-family);
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: center;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .navigation-hint {
+    font-size: 12px;
+    padding: 8px 12px;
+    white-space: normal;
+    max-width: 90%;
+  }
+}
