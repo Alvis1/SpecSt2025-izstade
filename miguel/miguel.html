@@ -1,17 +1,16 @@
 <html>
   <head>
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-event-set-component@5.x.x/dist/aframe-event-set-component.min.js"></script>
-    <script src="scripts/navmesh.js"></script>
-    <script src="scripts/lightmaps.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@7.2.0/dist/aframe-extras.min.js"></script>
   </head>
 
   <body>
-    <a-scene keyboard-shortcuts="" screenshot="" xr-mode-ui="" device-orientation-permission-ui="">
+    <a-scene>
 
       <!-- GRUPO CUEVAS -->
       <a-entity id="grupoCuevas"
         animation="property: rotation; from: 0 0 0; to: 0 0 360; loop: true; dur: 250000; easing: linear;">
+          
           <a-entity gltf-model="objects/cueva 2411.glb" scale="5 5 5" position="-16.58 90 -62.25"></a-entity>
           <a-entity gltf-model="objects/cueva 2411.glb" scale="6.18 5 5" position="34.29881 -100 -38.38705" rotation="-0.03241 -49.41723 -26.50665"></a-entity>
           <a-entity gltf-model="objects/cueva 2411.glb" scale="3.49 3.74 0.58" position="-110 19.54 -23.25207" rotation="-173.85 -137.8 31.04324"></a-entity>
@@ -23,44 +22,53 @@
           <a-entity gltf-model="objects/cueva 2411.glb" scale="5 5 5" position="38.89872 -42.54463 -9.63207" rotation="-51.9529 -78.08899 31.40324"></a-entity>
           <a-entity gltf-model="objects/cueva 2411.glb" scale="5 5 5" position="4.86254 -69.97942 -13.3948" rotation="-74.3659 74.3825 4.93775"></a-entity>
           <a-entity gltf-model="objects/cueva 2411.glb" scale="5 5 5" position="-21.44898 42.95721 -42.99345" rotation="3.4 43.0257 104.1368"></a-entity>
+      
       </a-entity>
 
-      <!-- PLANO -->
-      <a-plane id="floor" position="0 -15 120" rotation="-90 0 0" width="7" height="300"
-               color="#9BC9A4" material="opacity: 0.56; color: #371818"
-               scale="1 1.57 1">
-      </a-plane>
+      <!-- NAVMESH -->
+      <a-entity id="navmesh"
+          gltf-model="miguel/objects/espacionavmesh.glb"
+          nav-mesh
+          rotation="360 0 0"
+          position="0 0 370"
+          visible="false">
+      </a-entity>
 
-      <!-- NAVMESH (límite de movimiento) -->
-      <a-entity id="navmesh01" geometry="primitive: plane; width: 7; height: 300"
-                rotation="-90 0 0" position="0 -16 120"></a-entity>
+      <!-- ESCENARIO -->
+     <a-entity id="escenario" gltf-model="objects/escenario.glb" position="1 -14 368.31016" rotation="360 0 0" material="opacity: 0.18; transparent: true; color: #760404" scale="0.7 0.7 0.7">
+      </a-entity>
 
-      <!-- ESFERA -->
+      <!-- ESFERA (CORREGIDA) -->
       <a-entity gltf-model="objects/esfera version 1.glb"
-                position="0 0 0" rotation="0 0 0"
-                animation="property: rotation; from: 0 0 0; to: 360 360 360; dir: alternate; dur: 7000; easing: linear; loop: true;">
+                position="0 0 0"
+                animation="property: rotation; from: 0 0 0; to: 360 360 360;
+                           dir: alternate; dur: 7000; easing: linear; loop: true;">
       </a-entity>
 
-      <!-- SKY -->
-      <a-sky color="#080c16" position="0 -0.08631 0"></a-sky>
+      <!-- LUZ -->
+      <a-entity light="type: ambient; color: #BBB"></a-entity>
+
+      <a-sky color="#080c16"></a-sky>
 
       <!-- CÁMARA -->
-      <a-entity camera listener look-controls wasd-controls="acceleration: 40"
-                navmesh="navmesh: #navmesh01" position="0 -12 120">
+      <a-entity camera
+        look-controls
+        wasd-controls="acceleration: 40"
+        navmesh-constraint="navmesh: #navmesh"
+        position="0 1.6 370">
       </a-entity>
 
-      <!-- SONIDO -->
-      <a-entity id="audio" sound="src: url(objects/audio_sstudies.ogg); autoplay: false; loop: true"></a-entity>
+      <!-- AUDIO -->
+      <a-entity id="audio" sound="loop: true; src: objects/audio_sstudies.ogg; volume: 1.41"></a-entity>
 
     </a-scene>
 
     <script>
-      // Reproducir audio al primer clic en cualquier parte
       const scene = document.querySelector("a-scene");
-      const audioEntity = document.querySelector("audio_sstudies");
+      const audioEntity = document.querySelector("#audio");
 
       function startAudio() {
-        setTimeout(() => { audioEntity.components.sound.playSound(); }, 200);
+        setTimeout(() => audioEntity.components.sound.playSound(), 200);
         scene.removeEventListener("click", startAudio);
       }
 
