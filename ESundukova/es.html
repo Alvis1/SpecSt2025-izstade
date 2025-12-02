@@ -1,27 +1,125 @@
 <html>
   <head>
-    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <script src="komponentes/navmesh.js"></script>
+    <script src="komponentes/lightmaps.js"></script>
   </head>
   <body>
-    <a-scene>
+
+    <a-scene fog="color: #ffffff; near: 30; far:50; density:0.00001;" environment="" renderer="antialias: true;" inspector="" keyboard-shortcuts="" screenshot="" vr-mode-ui="" device-orientation-permission-ui=""  visible="">
       <a-assets>
-        <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg">
-        <img id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg">
+        <img id="groundTexture" src="images/floor.jpg">
+        <img id="skyTexture" src="images/sky-light.jpg">
       </a-assets>
-      <!-- izstades komponenti-->
       
-      <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
-      <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E" material="color: #2e4eef"></a-sphere>
-      <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
+      <!-- skaņa-->
+      <a-entity id="bgSoundPlayer" sound="positional: false; volume: 0.01; src: audio/bg-sound.wav; autoplay: false; loop:true;"></a-entity>
+     
+      
+ 
       <a-plane position="0 0 -4" rotation="-90 0 0" shadow width="4" height="4" color="#7BC8A4"></a-plane>
       <a-sky color="#ECECEC"></a-sky>
-      <a-entity light="type: spot; color: pink; intensity: 0.6" position="-0.5 1 1"></a-entity>
-      <a-entity light="type: ambient; color: #BBB"></a-entity>
 
-      <a-entity gltf-model="url(Objekti/kubs01.glb)"></a-entity>
+
+       <a-entity class="collider" obb-collider="minimumColliderDimension:10;" sound="positional: false; volume: 0.6; src: audio/cilpa.wav; autoplay: false" position="2 10.35199 -18.67" rotation="0 220 0" animation="property: rotation; to: 0 -140 0; loop: true; dur: 10000; easing: linear;">
+        <a-entity shadow gltf-model="Objekti/BurtuCilpa_02.glb"  scale="2.4 2.4 2.4" lightmap="key: M_BurtiCilpa01; intensity: 1"></a-entity>
+      </a-entity>
+
+      <a-entity class="collider" obb-collider="minimumColliderDimension:10;" sound="positional: false; volume: 0.6; src: audio/cilpa.wav; autoplay: false" position="20 1.35199 15.67" rotation="0 220 0" animation="property: rotation; to: 0 -140 0; loop: true; dur: 10000; easing: linear;">
+        <a-entity shadow gltf-model="Objekti/BurtuCilpa_02.glb"  scale="1.0 1.0 1.0" lightmap="key: M_BurtiCilpa01; intensity: 1"></a-entity>
+      </a-entity>
+
+
+        <a-entity shadow="" gltf-model="Objekti/apnicis.glb" scale="3 3 3" class="collider" obb-collider="minimumColliderDimension: 10" sound="positional: false; src: audio/apnicis.wav; volume: 0.6" position="-10.86602 5.64393 -17.31691" rotation="0 45 0"></a-entity>
+   
+        <a-entity shadow="" gltf-model="Objekti/nevaru.glb" scale="30 30 30" class="collider" obb-collider="minimumColliderDimension: 10" sound="positional: false; src: audio/nevaru.wav; volume: 0.6" position="14.63479 6.39409 -5.93066" rotation="0 -60 0"></a-entity>
+
+
+
+          <a-entity shadow="" gltf-model="Objekti/nevaru.glb" scale="15 15 15" class="collider" obb-collider="minimumColliderDimension: 10" sound="positional: false; src: audio/nevaru.wav; volume: 0.6" position="5.995 27.364 -5.931" rotation=""></a-entity>
+     
+    <a-entity gltf-model="Objekti/meatball.glb"  scale="0.06 0.06 0.06" position="0 20.938 0" rotation="0 220 0" animation="property: rotation; to: 0 -140 0; loop: true; dur: 50000; easing: linear;"></a-entity>
+
+
+       
+      <a-entity class="collider" obb-collider="minimumColliderDimension:0.01;" sound="positional: false; volume: 0.6; src: audio/atkartot.wav; autoplay: false" gltf-model="url(Objekti/atkartot.glb)" scale="1.0 1.0 1.0" position="-20.22658 9.60133 10.1"  animation="dur: 13000; easing: linear; loop: true; property: position; to: -20.22658 -5.39481 10.1"></a-entity>
+      <a-entity class="collider" obb-collider="minimumColliderDimension:0.01;" sound="positional: false; volume: 0.6; src: audio/atkartot.wav; autoplay: false" gltf-model="url(Objekti/atkartot.glb)" scale="1.0 1.0 1.0" position="-20.22658 15.60133 10.1"  animation="dur: 15000; easing: linear; loop: true; property: position; to: -20.22658 -5.39481 10.1"></a-entity>
+      <a-entity class="collider" obb-collider="minimumColliderDimension:0.01;" sound="positional: false; volume: 0.6; src: audio/atkartot.wav; autoplay: false" gltf-model="url(Objekti/atkartot.glb)" scale="1.0 1.0 1.0" position="-20.22658 21.60133 10.1"  animation="dur: 15000; easing: linear; loop: true; property: position; to: -20.22658 -5.39481 10.1"></a-entity>
+
+
       
+
+
+      
+
+      <a-entity class="loop" rotation="0 220 0" geometry="primitive: torusKnot; q: 2; radius: 3; segmentsRadial: 12" material="shader: flat; color: black" material="shader: displacement-offset" position="-5.96639 4.70348 0" scale="0.4 0.4 1" animation="property: rotation; to: 0 -140 0; loop: true; dur: 20000; easing: linear;"></a-entity>
+      <a-entity class="loop" rotation="0 220 0" geometry="primitive: torusKnot; q: 2; radius: 3; segmentsRadial: 12" material="shader: flat; color: black" position="12.48053 14.68113 2.0153" scale="2 0.2 1" animation="dur: 20000; easing: linear; loop: true; property: rotation; to: 0 -140 0"></a-entity>
+      <a-entity class="loop" rotation="0 220 0" geometry="primitive: torusKnot; q: 2; radius: 3; segmentsRadial: 12" material="shader: flat; color: black" position="7.48053 6.68113 2.0153" scale="0.8 0.2 1" animation="dur: 20000; easing: linear; loop: true; property: rotation; to: 0 -140 0"></a-entity>
+      <a-entity class="loop" rotation="0 220 0" geometry="primitive: torusKnot; q: 3; radius: 3; segmentsRadial: 12" material="shader: flat; color: black" position="-3.08534 18.99693 2.0153" scale="4 2 2" animation="dur: 20000; easing: linear; loop: true; property: rotation; to: 0 -140 0"></a-entity>
+
+
+
       <a-cylinder id="ground" src="#groundTexture" radius="30" height="0.1"></a-cylinder>
       <a-sky id="background" src="#skyTexture" theta-length="90" radius="30"></a-sky>
+
+ 
+
+
+  <a-camera look-controls wasd-controls="acceleration:20" navmesh="navmesh: #ground" position="0 1.6 29.567" obb-collider>
+    <!-- <a-cursor></a-cursor> -->
+      <a-entity cursor="fuse: true; fuseTimeout: 500"
+            position="0 0 -1"
+            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+            material="color: red; shader: flat">
+  </a-entity>
+  </a-camera>
+
+
+      <a-entity
+          id="infoPanel"
+          position="1 1.6 25"
+          info-panel
+          visible="true"
+          geometry="primitive: plane; width: 4; height: 2"
+          material="color: black;">
+          <a-image id="closeButton" src="images/cross.png" position="1.59849 0.65737 0" scale="0.3 0.3 0.3"></a-image>
+
+   
+          <a-entity
+          scale="1 1 1"
+          text="align: left; width: 3; lineHeight: 50; negate: true; font: https://cdn.aframe.io/fonts/DejaVu-sdf.fnt; value: Point to texts to hear how it feels like to be in the loop">
+          </a-entity>
+        </a-entity>
+   
+
+      
     </a-scene>
+    <script>
+
+    var sceneEl = document.querySelector('a-scene');
+
+    var bgSound = sceneEl.querySelector('#bgSoundPlayer');
+        sceneEl.addEventListener('click', function(event){
+        bgSound.components.sound.playSound();
+    });
+
+     var closeButton = sceneEl.querySelector('#closeButton');
+        closeButton.addEventListener('click', function(event){
+        document.querySelector('#infoPanel').setAttribute('visible', false);
+    })
+
+
+     var colliders = sceneEl.querySelectorAll('.collider');
+
+    for (var i = 0; i < colliders.length; i++) {
+      colliders[i].addEventListener('mouseenter', function (event) {
+      this.components.sound.playSound();
+      });
+    }
+
+
+    </script>
   </body>
 </html>
+
+
