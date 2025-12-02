@@ -1,0 +1,180 @@
+<html>
+  <head>
+    <!-- A-Frame + your movement script -->
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="forward-back.js"></script>
+    <script src="ebbinghaus.js"></script>
+    <script src="proximity-light.js"></script>
+    <script src="sky-fade.js"></script>
+    <script src="wall-disappear.js"></script>
+
+  </head>
+
+  <body>
+    <a-scene background="color:#ECECEC" sky-fade="zTrigger: -20; fadeSpeed: 0.01">
+
+  
+<!-- CAMERA RIG -->
+<a-entity id="rig"
+          forward-back
+          expand-light-after="zThreshold: -20; newDistance: 100">
+          
+  <a-entity camera="fov: 30" position="0 0 40">
+    <a-light 
+      id="camLight"
+      type="spot" 
+      intensity="20" 
+      distance="20" 
+      position="0 0 0">
+    </a-light>
+  </a-entity>
+
+</a-entity>
+
+
+
+      <!-- Ground -->
+      <a-plane id="ground"
+         rotation="-90 0 0"
+         width="40"
+         height="100"
+         color="#ccc">
+      </a-plane>
+
+      <!-- LEFT WALL -->
+      <a-box
+        position="-5 2 -10"
+        width="0.3"
+        height="4"
+        depth="50"
+        color="#cccccc">
+      </a-box>
+
+      <!-- RIGHT WALL -->
+      <a-box
+        position="5 2 -10"
+        width="0.3"
+        height="4"
+        depth="50"
+        color="#cccccc">
+      </a-box>
+
+      <!-- PERIMETER WALLS -->
+      <a-box position="-20 2 0" width="0.3" height="4" depth="100" color="#cccccc"></a-box>
+      <a-box position="20 2 0"  width="0.3" height="4" depth="100" color="#cccccc"></a-box>
+      <a-box position="0 2 50"   width="40" height="4" depth="0.3" color="#cccccc"></a-box>
+      <a-box position="0 2 -50"  width="40" height="4" depth="0.3" color="#cccccc"></a-box>
+
+      <!-- STATIC OBJECTS -->
+      <a-box color="#F33" position="0 -5 5">
+        <a-animation attribute="rotation" dur="4000" to="0 360 0" repeat="indefinite"></a-animation>
+      </a-box>
+      
+      <a-box color="#FFD700" position="0 -10 -20">
+        <a-animation attribute="scale" dur="3000" dir="alternate" to="1.5 1.5 1.5" repeat="indefinite"></a-animation>
+      </a-box>
+
+      <a-plane src="att/illusion-1.jpg" width="6" height="6" position="0 2 15"></a-plane>
+
+      <!-- MOVING ELEMENTS -->
+      <a-box color="#94C4FF" position="-8 0.5 3"
+             animation="property: scale; dir: alternate; dur: 4000; loop: true; to: 4 2 2">
+      </a-box>
+
+      <a-sphere color="#white" radius="1" position="10 1.5 -20"
+                material="emissive: #F7FF14; emissiveIntensity: 1"
+                animation="property: scale; dir: alternate; dur: 4500; loop: true; to: 2 2 2">
+      </a-sphere>
+
+      <a-cylinder color="#FFC65D" radius="0.5" height="2"
+                  material="src:walls.jpg; roughness:1; metalness:0;"
+                  position="-7 1 -9"
+                  animation="property: scale; dir: alternate; dur: 5000; loop: true; to: 2 2 2">
+      </a-cylinder>
+
+      <a-plane
+          src="att/illusion-spiral.jpg"
+          width="4" height="4"
+          position="0 3 -10"
+          material="shader: flat;"
+          animation="property: rotation; to: 0 0 360; loop: true; dur: 6000; easing: linear">
+      </a-plane>
+
+
+      <a-plane
+          src="att/optiska_2.jpeg"
+          width="4" height="4"
+          position="-10 3 -28"
+          material="shader: flat;"
+          animation="property: rotation; to: 0 0 360; loop: true; dur: 6000; easing: linear">
+      </a-plane>
+
+      <!-- Ebbinghaus -->
+      <a-entity ebbinghaus="type: large" position="8 2.2 -10"></a-entity>
+      <a-entity ebbinghaus="type: small" position="12 1.8 -10"></a-entity>
+
+      <!-- TEXT SIGNS -->
+
+      <a-entity position="0 2 -23">
+        <a-plane color="#FFFFFF" opacity="0.9" height="1" width="8"></a-plane>
+        <a-text 
+          value="You are free to move. See what was really here."
+          align="center"
+          color="black"
+          width="5w"        <!-- increase from 5 to 8 -->
+          position="0 0 0.01">
+        </a-text>
+      </a-entity>
+
+      <a-entity position="0 3 20">
+        <a-plane color="#FFFFFF" height="1.2" width="6"></a-plane>
+        <a-text
+          value="Move forward.
+          What you see is all you are allowed for now."
+          align="center" color="#000000" wrap-count="40" position="0 0 0.01">
+        </a-text>
+      </a-entity>
+
+      <!-- GLB ASSETS -->
+      <a-assets>
+        <a-asset-item id="triangle" src="assets/tests_tr.glb"></a-asset-item>
+        <a-asset-item id="stairs" src="assets/kapnes.glb"></a-asset-item>
+        <a-asset-item id="trijsturis_2" src="assets/trijsturis_2.glb"></a-asset-item>
+        <a-asset-item id="cube_ill" src="assets/cube_ill.glb"></a-asset-item>
+        <a-asset-item id="arrow" src="assets/arrow.glb"></a-asset-item>
+      </a-assets>
+
+      <!-- GLB MODELS -->
+      <a-entity gltf-model="assets/kapnes.glb" 
+                position="1.25823 1.45804 1.08021" 
+                scale="3 3 3" 
+                rotation="-7.93 -121.65 -38.67">
+      </a-entity>
+
+      <a-entity gltf-model="assets/trijsturis_2.glb"
+                position="-3.0003 2 -5"
+                rotation="1.337 27.33 -25.04">
+      </a-entity>
+
+      <a-entity gltf-model="assets/cube_ill.glb"
+                position="-1.14 2.01 -2.76"
+                rotation="-56.31 11.88 -146.82"
+                scale="0.2 0.21 0.2">
+      </a-entity>
+
+      <a-entity gltf-model="assets/arrow.glb"
+        position="0 0 25"
+        rotation="0 90 40"
+        scale="1 1 1"
+        overrideMaterial="shader: standard; color: #fff700; emissive: #fff700; emissiveIntensity: 5"
+        animation="property: position; dir: alternate; dur: 1500; to: 0 0 23; loop: true">
+      </a-entity>
+<a-entity auto-hide-walls="triggery: -5"></a-entity>
+
+      <!-- SKY -->
+      <a-sky id="skyDark" color="#000000"></a-sky>
+      <a-sky id="skyBright" color="#ECECEC" material="opacity: 0"></a-sky>
+
+    </a-scene>
+  </body>
+</html>
