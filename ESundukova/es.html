@@ -10,15 +10,10 @@
       <a-assets>
         <img id="groundTexture" src="images/floor.jpg">
         <img id="skyTexture" src="images/sky-light.jpg">
-        <img id="coalMap" src="images/LM_BurtiCilpa_01.webp">
       </a-assets>
       
       <!-- skaņa-->
       <a-entity id="bgSoundPlayer" sound="positional: false; volume: 0.01; src: audio/bg-sound.wav; autoplay: false; loop:true;"></a-entity>
-
-
-      <!-- izstades komponenti-->
-      <!-- <a-light type="point" color="white" position="0 5 0"></a-light> -->
      
       
  
@@ -103,27 +98,24 @@
 
     var sceneEl = document.querySelector('a-scene');
 
-
     var bgSound = sceneEl.querySelector('#bgSoundPlayer');
-    sceneEl.addEventListener('click', function(event){
+        sceneEl.addEventListener('click', function(event){
         bgSound.components.sound.playSound();
     });
 
      var closeButton = sceneEl.querySelector('#closeButton');
-    closeButton.addEventListener('click', function(event){
+        closeButton.addEventListener('click', function(event){
         document.querySelector('#infoPanel').setAttribute('visible', false);
     })
 
 
-  var colliders = sceneEl.querySelectorAll('.collider');
+     var colliders = sceneEl.querySelectorAll('.collider');
 
-      for (var i = 0; i < colliders.length; i++) {
-      console.log(colliders[i]);
+    for (var i = 0; i < colliders.length; i++) {
       colliders[i].addEventListener('mouseenter', function (event) {
       this.components.sound.playSound();
       });
-
-      }
+    }
 
 
     </script>
