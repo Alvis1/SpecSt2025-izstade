@@ -1,16 +1,305 @@
 <html>
   <head>
-    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
-  </head>
-  <body>
-    <a-scene>
-      <a-camera camera="active: true" look-controls wasd-controls position="0 1.6 0" fov="60"></a-camera>
 
-      <a-entity gltf-model="assets/couch.glb" id="2couch" position="0 0.913 0"></a-entity>
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+
+<!-- rendere prieksa -->
+      <script>
+  AFRAME.registerComponent('paliec_prieksa', {
+    init: function () {
+      this.el.addEventListener('model-loaded', () => {
+        this.el.object3D.traverse(function (obj) {
+          if (obj.isMesh) {
+            obj.renderOrder = 999; // draw after other stuff
+            if (obj.material) {
+              obj.material.depthTest = false;
+              obj.material.depthWrite = false;
+            }
+          }
+        });
+      });
+    }
+  });
+      </script>
+
+<!-- maini kanalu -->
+        <script>
+AFRAME.registerComponent('switch-channel', {
+  schema: {
+    channel1: {type: 'selector'},
+    channel2: {type: 'selector'},
+    channel3: {type: 'selector'},
+    channel4: {type: 'selector'}
+  },
+
+  init: function () {
+    var el = this.el;
+    var data = this.data;
+
+    // skalums
+    this.desiredVolume = 0.1;
+
+    // svarigi glabajas video
+    this.channels = [
+      data.channel1,
+      data.channel2,
+      data.channel3,
+      data.channel4
+    ].filter(function (v) { return v; });
+
+    this.current = 0; // start on first channel
+
+   
+    this.channels.forEach((vid, i) => {
+      vid.volume = this.desiredVolume;   // liekam skalumu
+
+      if (i === 0) {
+        vid.play();
+      } else {
+        vid.pause();
+      }
+    });
+
+    // pirmais kanals sakuma
+    el.setAttribute('material', 'src', '#channel1');
+
+    // KLIKSKA LOGIKA
+    this.pressedHere = false;
+
+el.addEventListener('mousedown', () => {
+  this.pressedHere = true;
+});
+
+el.addEventListener('mouseup', () => {
+  if (this.pressedHere) {
+    this.changeChannel();
+  }
+  this.pressedHere = false;
+});
+
+
+el.addEventListener('mouseleave', () => {
+  this.pressedHere = false;
+});
+
+
+el.addEventListener('raycaster-intersection-cleared', () => {
+  this.pressedHere = false;
+});
+
+
+
+  },
+
+  changeChannel: function () {
+    // Pause
+    this.channels[this.current].pause();
+
+    // Next
+    this.current = (this.current + 1) % this.channels.length;
+
+
+    var vid = this.channels[this.current];
+    vid.currentTime = 0;
+    vid.volume = this.desiredVolume;   // BEIDZ CAKARET PRATU SKANA
+    vid.play();
+
+    // Update TV
+    var selector = '#channel' + (this.current + 1);
+    this.el.setAttribute('material', 'src', selector);
+  }
+});
+</script>
+
+
+  </head>
+  
+  <body>
+
+    <video id="channel1"
+           src="assets/video/pangoo.mp4"
+           loop
+           
+           playsinline
+           webkit-playsinline></video>
+
+    <video id="channel2"
+           src="assets/video/channel3.mp4"
+           loop
+           
+           playsinline
+           webkit-playsinline></video>
+
+    <video id="channel3"
+           src="assets/video/channel2.mp4"
+           loop
+           
+           playsinline
+           webkit-playsinline></video>
+
+    <video id="channel4"
+           src="assets/video/channel4.mp4"
+           loop
+           
+           playsinline
+           webkit-playsinline></video>
+
+    <a-scene>
+   
+        <a-assets>
+        <!-- telpatexturas -->
+        <img id="floorTex" src="assets/floor.jpg">
+        <img id="ceilingTex" src="assets/ceiling.jpg">
+        <img id="wallTex1" src="assets/wallpaper.jpg">
+
+      </a-assets>
+
+      <!-- kamera -->
+      <a-entity camera="fov: 60" look-controls position="0 1.5 0" >
+
+      <!-- KURSORS -->
+          <a-cursor
+            id="cursor"
+            raycaster="objects: .clickable"
+            material="shader: flat; color: white; opacity: 0.1">
+          </a-cursor>
+
+        <!-- pults -->
+        <a-entity gltf-model="assets/tv_remote_control.glb"
+                  id="pults"
+                  position="-1 -0.5 -1"
+                  rotation="5 -3 -5"
+                  scale="0.08 0.08 0.08"
+                  paliec_prieksa>
+                  
+        </a-entity>
+
+
+        <!-- popkorns -->
+        <a-entity gltf-model="assets/popcorn.glb"
+                  id="popcorn"
+                  position="0.6 -0.3 -0.7"
+                  rotation="0 15 0"
+                  scale="0.2 0.2 0.2"
+                  paliec_prieksa> 
+          
+        </a-entity>
+      </a-entity>
+
+            <!-- ekrans -->
+        <a-plane id="tvScreen"
+         class="clickable"
+         position="0.00668 1.14818 -2.919" 
+         width="2"
+         height="1.1"
+         material="src: #channel2; shader: flat"
+         switch-channel="channel1: #channel1; channel2: #channel2; channel3: #channel3; channel4: #channel4"
+         scale="0.41 0.57 0.03">
+         
+        </a-plane>
+        <!-- gaisma -->
+        <a-entity light="type: spot;
+                 color: #AFCFFF;
+                 intensity: 2;
+                 angle: 160;
+                 penumbra: 0.4"
+          position="0 1 -2.5"
+          rotation="0 180 0">
+        </a-entity>
+
+      <a-entity gltf-model="assets/couch.glb" id="2couch" position="0 0.913 0.5"></a-entity>
       <a-entity gltf-model="assets/tv_table.glb" id="table" position="0 -0.007 -3.05528" rotation="0 -90 0"></a-entity>
       <a-entity gltf-model="assets/crt_tv.glb" id="tv" position="0 0.62006 -2.93218" rotation="0 180 0" scale="2 2 2"></a-entity>
 
-      <a-plane position="0 0 -4" rotation="-90 0 0" width="200" height="200" color="#7BC8A4"></a-plane>
+        <!-- TOP ABOVE WINDOW -->
+<a-plane
+  position="0 3.5 -6.01"
+  rotation="0 0 0"
+  width="11"
+  height="1.2"
+  material="src: #wallTex1; side: double; repeat: 20 3">
+</a-plane>
+
+<!-- BOTTOM BELOW WINDOW -->
+<a-plane
+  position="0 0.6 -6"
+  rotation="0 0 0"
+  width="10"
+  height="1.2"
+  material="src: #wallTex1; side: double; repeat: 20 2">
+</a-plane>
+
+<!-- LEFT SIDE OF WINDOW -->
+<a-plane
+  position="-1.5 1.5 -5.99"
+  rotation="0 0 0"
+  width="7"
+  height="3"
+  material="src: #wallTex1; side: double; repeat: 20 5">
+</a-plane>
+
+<!-- RIGHT SIDE OF WINDOW -->
+<a-plane
+  position="4.5 1.5 -5.98"
+  rotation="0 0 0"
+  width="2"
+  height="5"
+  material="src: #wallTex1; side: double; repeat: 5 7">
+</a-plane>
+
+<!-- WINDOW -->
+
+<a-plane
+  position="2.6 1.5 -6.02"
+  rotation="0 0 0"
+  width="2"
+  height="3"
+  material="color: #87CEFA; opacity: 0.5; transparent: true">
+</a-plane>s
+
+  <!-- WALL 2 (back) -->
+      <a-plane
+        position="0 1.5 3"
+        rotation="0 180 0"
+        width="10"
+        height="4"
+        material="src: #wallTex1; side: double; repeat: 20 5">
+      </a-plane>
+
+      <!-- WALL 3 (left) -->
+      <a-plane
+        position="-5 1.5 -2"
+        rotation="0 90 0"
+        width="10"
+        height="4"
+        material="src: #wallTex1; side: double; repeat: 20 5">
+      </a-plane>
+
+      <!-- WALL 4 (right) -->
+      <a-plane
+        position="5 1.5 -2"
+        rotation="0 -90 0"
+        width="10"
+        height="4"
+        material="src: #wallTex1; repeat: 20 5">
+      </a-plane>
+       <!-- CEILING -->
+      <a-plane 
+      position="5 3 4" 
+      rotation="90 0 0" 
+      width="20" 
+      height="20" 
+      material="src: #ceilingTex; repeat: 15 15">
+      </a-plane>
+      <!-- FLOOR -->
+      <a-plane 
+      position="0 0 -4" 
+      rotation="-90 0 0" 
+      width="20" 
+      height="20" 
+      material="src: #floorTex; repeat: 20 5">
+      </a-plane>
+
       <a-sky color="#FFD580"></a-sky>
     </a-scene>
   </body>
