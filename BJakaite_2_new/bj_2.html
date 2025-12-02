@@ -1,195 +1,187 @@
 <html>
   <head>
+    <!-- A-Frame + your movement script -->
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
-<script src="forward-back.js"></script>
+    <script src="forward-back.js"></script>
+    <script src="ebbinghaus.js"></script>
+    <script src="proximity-light.js"></script>
+    <script src="sky-fade.js"></script>
 
+    <!-- Your custom navmesh physics engine -->
+    <script src="komponentes/navmesh.js"></script>
   </head>
 
-
-  !-- Zeme -->
-    <a-plane rotation="-90 0 0" width="20" height="100" color="####" material="src:grid_txt.png; roughness:1; metalness:0;"
-        
-></a-plane>
-
-
-    <!-- Kreisā siena -->
-    <a-plane rotation="0 87 0" position="-5 2 -10"
-             width="50" height="4" color="#cccccc"></a-plane>
-
-    <!-- Labā siena-->
-    <a-plane rotation="0 -87 0" position="5 2 -10"
-             width="50" height="4" color="#cccccc"></a-plane>
-
-    <!-- Kubi -->
-    <a-box color="#94C4FF" position="-5 1 -3"
-           animation="property: scale; dir: alternate; dur: 4000; loop: true; to: 4 2 2">
-    </a-box>
-
-    <a-box color="#94C4FF" position="-3.5 1 -3"
-           animation="property: scale; dir: alternate; dur: 4000; loop: true; to: 4 2 2">
-    </a-box>
-
-
-    <!-- Sfēra -->
-    <a-sphere color="#F54927" radius="1" position="3 1.5 2"material="emissive: #F7FF14; emissiveIntensity: 0.5"
-
-              animation="property: scale; dir: alternate; dur: 4500; loop: true; to: 2 2 2">
-    </a-sphere>
-
-    <!-- Cilindrs -->
-    <a-cylinder color="#FFC65D" radius="0.5" height="2"  material="src:walls.jpg; roughness:1; metalness:0;"
-               position="0 1 -9"
-               animation="property: scale; dir: alternate; dur: 5000; loop: true; to: 2 2 2">
-    </a-cylinder>
-
-    <!-- Gaisma -->
-   <a-entity light="type: point; color: #ffffff; intensity: 1; distance: 10"
-          position="0 3 0"
-      
-</a-entity>
   <body>
-    <a-scene background="color:#ECECEC">
-<!-- Camera rig (with controlled movement) -->
-<a-entity forward-back>
-  <a-entity camera="fov: 30" position="0 0 40">
+    <a-scene background="color:#ECECEC" sky-fade="zTrigger: -20; fadeSpeed: 0.01">
 
-    <!-- Light follows the camera -->
-    <a-light 
-      type="point" 
-      intensity="10" 
-      distance="20" 
-      position="0 0 0">
-    </a-light>
+      <!-- CAMERA RIG (navmesh enabled) -->
+      <a-entity id="rig"
+        forward-back
+        navmesh="navmesh: .walkable; exclude: .obstacle; height: 1.6; fall: 1.0"
+        expand-light-after="zThreshold: -20; newDistance: 100">
 
-  </a-entity>
-</a-entity>
+        <a-entity camera="fov: 30" position="0 0 40">
+          <a-light 
+            id="camLight"
+            type="spot" 
+            intensity="20" 
+            distance="20" 
+            position="0 0 0">
+          </a-light>
+        </a-entity>
 
-      <!-- Ground -->
-      <a-plane rotation="-90 0 0" width="20" height="100" color="#ccc"></a-plane>
+      </a-entity>
 
-      <!-- Red cube (behind the start, at z=+5) -->
-      <a-box color="#F33" position="0 0.5 5">
+      <!-- Ground (walkable navmesh surface) -->
+      <a-plane id="ground"
+         class="walkable"
+         rotation="-90 0 0"
+         width="40"
+         height="100"
+         color="#ccc">
+      </a-plane>
+
+      <!-------------->   
+      <!-- SIENAS -->
+      <!-------------->
+
+      <!-- KREISĀ SIENA -->
+      <a-box class="obstacle"
+        id="corridor-left"
+        position="-5 2 -10"
+        width="0.3"
+        height="4"
+        depth="50"
+        color="#cccccc">
+      </a-box>
+
+      <!-- LABĀ SIENA -->
+      <a-box class="obstacle"
+        id="corridor-right"
+        position="5 2 -10"
+        width="0.3"
+        height="4"
+        depth="50"
+        color="#cccccc">
+      </a-box>
+
+      <!-- PERIMETER WALLS -->
+      <a-box class="obstacle" position="-20 2 0" width="0.3" height="4" depth="100" color="#cccccc"></a-box>
+      <a-box class="obstacle" position="20 2 0"  width="0.3" height="4" depth="100" color="#cccccc"></a-box>
+      <a-box class="obstacle" position="0 2 50"   width="40" height="4" depth="0.3" color="#cccccc"></a-box>
+      <a-box class="obstacle" position="0 2 -50"  width="40" height="4" depth="0.3" color="#cccccc"></a-box>
+
+      <!-------------->
+      <!-- STATIC OBJECTS -->
+      <!-------------->
+
+      <a-box color="#F33" position="0 -5 5">
         <a-animation attribute="rotation" dur="4000" to="0 360 0" repeat="indefinite"></a-animation>
       </a-box>
-      <!-- Keyboard hint near red cube -->
+      
+      <a-box color="#FFD700" position="0 -10 -20">
+        <a-animation attribute="scale" dur="3000" dir="alternate" to="1.5 1.5 1.5" repeat="indefinite"></a-animation>
+      </a-box>
 
+      <a-plane src="att/illusion-1.jpg" width="6" height="6" position="0 2 15"></a-plane>
 
-      <a-plane rotation="0 87 0" position="-5 2 -10"
-             width="50" height="4" color="#cccccc"></a-plane>
+      <!-------------->
+      <!-- MOVING ELEMENTS -->
+      <!-------------->
 
-    <!-- Labā siena-->
-    <a-plane rotation="0 -87 0" position="5 2 -10"
-             width="50" height="4" color="#cccccc"></a-plane>
+      <a-box color="#94C4FF" position="-8 0.5 3"
+             animation="property: scale; dir: alternate; dur: 4000; loop: true; to: 4 2 2">
+      </a-box>
 
-    <!-- Kubi -->
-    <a-box color="#94C4FF" position="-5 1 -3"
-           animation="property: scale; dir: alternate; dur: 4000; loop: true; to: 4 2 2">
-    </a-box>
+      <a-sphere color="#white" radius="1" position="10 1.5 -20"
+                material="emissive: #F7FF14; emissiveIntensity: 1"
+                animation="property: scale; dir: alternate; dur: 4500; loop: true; to: 2 2 2">
+      </a-sphere>
 
-    <a-box color="#94C4FF" position="-3.5 1 -3"
-           animation="property: scale; dir: alternate; dur: 4000; loop: true; to: 4 2 2">
-    </a-box>
+      <a-cylinder color="#FFC65D" radius="0.5" height="2"
+                  material="src:walls.jpg; roughness:1; metalness:0;"
+                  position="-7 1 -9"
+                  animation="property: scale; dir: alternate; dur: 5000; loop: true; to: 2 2 2">
+      </a-cylinder>
 
+      <a-plane class="no-obstacle"
+              src="att/illusion-spiral.jpg"
+               width="4" height="4"
+               position="0 3 -15"
+               material="shader: flat;"
+               animation="property: rotation; to: 0 0 360; loop: true; dur: 6000; easing: linear">
+      </a-plane>
 
-    <!-- Sfēra -->
-    <a-sphere color="#F54927" radius="1" position="3 1.5 2"material="emissive: #F7FF14; emissiveIntensity: 0.5"
+      <!-- Ebbinghaus -->
+      <a-entity ebbinghaus="type: large" position="8 2.2 -10"></a-entity>
+      <a-entity ebbinghaus="type: small" position="12 1.8 -10"></a-entity>
 
-              animation="property: scale; dir: alternate; dur: 4500; loop: true; to: 2 2 2">
-    </a-sphere>
+      <!-------------->
+      <!-- TEXT SIGNS -->
+      <!-------------->
 
-    <!-- Cilindrs -->
-    <a-cylinder color="#FFC65D" radius="0.5" height="2"  material="src:walls.jpg; roughness:1; metalness:0;"
-               position="0 1 -9"
-               animation="property: scale; dir: alternate; dur: 5000; loop: true; to: 2 2 2">
-    </a-cylinder>
-<a-entity position="0 3.5 9">
-  <a-plane color="#FFFFFF" opacity="0.9" height="1" width="3"></a-plane>
-  <a-text 
-    value="WS"
-    align="center"
-    color="black"
-    width="4"
-    position="0 0 0.01">
-  </a-text>
-</a-entity>
+      <a-entity position="0 3.5 9">
+        <a-plane color="#FFFFFF" opacity="0.9" height="1" width="3"></a-plane>
+        <a-text value="WS" align="center" color="black" width="4" position="0 0 0.01"></a-text>
+      </a-entity>
 
+      <a-entity position="0 2 -23">
+        <a-plane color="#FFFFFF" opacity="0.9" height="1" width="6"></a-plane>
+        <a-text value="You’re free to move. Now see what was really here"
+                align="center" color="black" width="5" position="0 0 0.01"></a-text>
+      </a-entity>
 
-      <!-- Yellow cube (ahead, at z=-20) -->
-<a-box color="#FFD700" position="0 1 -20">
-  <a-animation 
-    attribute="scale" 
-    dur="3000" 
-    dir="alternate" 
-    to="1.5 1.5 1.5" 
-    repeat="indefinite">
-  </a-animation>
-</a-box>
-
-
-
-      <!-- Keyboard hint after yellow cube -->
-<a-entity position="0 2 -23">
-  <a-plane color="#FFFFFF" opacity="0.9" height="1" width="6"></a-plane>
-  <a-text 
-    value="You’re free to move. Now see what was really here"
-    align="center"
-    color="black"
-    width="5"
-    position="0 0 0.01">
-  </a-text>
-</a-entity>
-
-
-            <!--  Plane with text after red cube -->
-      <a-entity position="0 3.5 20">
+      <a-entity position="0 3 20">
         <a-plane color="#FFFFFF" height="1.2" width="6"></a-plane>
-        <a-text value="Move forward.
-         What you see is all you are allowed for now"
-                align="center"
-                color="#000000"
-                wrap-count="40"
-                position="0 0 0.01">
+        <a-text
+          value="Move forward.
+          What you see is all you are allowed for now"
+          align="center" color="#000000" wrap-count="40" position="0 0 0.01">
         </a-text>
       </a-entity>
 
-      <!-- white sphere -->
-      <a-sphere color="#FFF" position="0 1 -12" radius="0.8"
-        material="emissive:white; emissiveIntensity:0.6"></a-sphere>
+      <!-------------->
+      <!-- GLB ASSETS -->
+      <!-------------->
 
-          <!-- GLB assets -->
-  <a-assets>
+      <a-assets>
         <a-asset-item id="triangle" src="assets/tests_tr.glb"></a-asset-item>
         <a-asset-item id="stairs" src="assets/kapnes.glb"></a-asset-item>
         <a-asset-item id="trijsturis_2" src="assets/trijsturis_2.glb"></a-asset-item>
         <a-asset-item id="cube_ill" src="assets/cube_ill.glb"></a-asset-item>
-  </a-assets>
+        <a-asset-item id="arrow" src="assets/arrow.glb"></a-asset-item>
+      </a-assets>
 
-<a-plane 
-  src="att/illusion-1.jpg"
-  width="4"
-  height="4"
-  position="0 2 12">
-</a-plane>
-
-  <!-- Add the model to the scene -->
-
-
-      <!-- Second model -->
-    <a-entity gltf-model="assets/kapnes.glb" position="1.25823 1.45804 1.08021" scale="3 3 3" rotation="-7.9314547579959855 -121.65440976674232 -38.6752241291257">
+      <!-- GLB MODELS -->
+      <a-entity gltf-model="assets/kapnes.glb" 
+                position="1.25823 1.45804 1.08021" 
+                scale="3 3 3" 
+                rotation="-7.93 -121.65 -38.67">
       </a-entity>
-        <!-- third model -->
-     <a-entity gltf-model="assets/trijsturis_2.glb" position="-3.0003 2 -5" rotation="1.3372834938353413 27.33295161671592 -25.045704098553678"></a-entity>
-    
-    
-<a-entity gltf-model="assets/cube_ill.glb" position="-1.14087 2.01 -2.76207" rotation="-56.31831351458915 11.88772833337432 -146.82731049581506" scale="0.2 0.21 0.2"></a-entity>
 
+      <a-entity gltf-model="assets/trijsturis_2.glb"
+                position="-3.0003 2 -5"
+                rotation="1.337 27.33 -25.04">
+      </a-entity>
 
+      <a-entity gltf-model="assets/cube_ill.glb"
+                position="-1.14 2.01 -2.76"
+                rotation="-56.31 11.88 -146.82"
+                scale="0.2 0.21 0.2">
+      </a-entity>
 
+      <a-entity gltf-model="assets/arrow.glb"
+        position="0 0 25"
+        rotation="0 90 40"
+        scale="1 1 1"
+        overrideMaterial="shader: standard; color: #fff700; emissive: #fff700; emissiveIntensity: 5"
+        animation="property: position; dir: alternate; dur: 1500; to: 0 0 23; loop: true">
+      </a-entity>
 
-  </a-entity>
+      <!-- SKY -->
+      <a-sky id="skyDark" color="#000000"></a-sky>
+      <a-sky id="skyBright" color="#ECECEC" material="opacity: 0"></a-sky>
 
-
-      <a-sky color="#ECECEC"></a-sky>
     </a-scene>
   </body>
 </html>
