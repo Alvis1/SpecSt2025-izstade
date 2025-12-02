@@ -29,7 +29,7 @@ AFRAME.registerComponent('forward-back', {
     if (pos.z < -1) this.hasLeftStartZone = true;
 
     // --- Unlock near the yellow cube ---
-    if (pos.z <= -20 && !this.freeMovement && this.hasLeftStartZone) {
+    if (pos.z <= -58 && !this.freeMovement && this.hasLeftStartZone) {
       this.freeMovement = true;
 
       if (this.cameraEl) {
