@@ -19,7 +19,7 @@ Working code
       <a-entity light="distance: 3; intensity: 1.24; type: point" position="-0.17934 2.95443 -1.70782"></a-entity>
       <a-entity light="distance: 3; intensity: 1.08; type: point" position="3.52993 2.83089 0.84136"></a-entity>
       <a-entity light="angle: 24.78; decay: 5.02; distance: 3.85; intensity: 1.1; penumbra: 1; type: spot" position="0.37673 1.54947 -4.28818"></a-entity>
-<a-entity geometry="primitive: plane" position="3.54507 3.92131 -2.17554" rotation="90 0.6 0" scale="10 10 1" material="offset: 0.95 0; anisotropy: 10.01; color: white, emissiveIntensity:5; displacementScale: 0; displacementBias: 0.52; emissive: #d5bdac; emissiveIntensity: 0.26; metalness: 1; roughness: 1"></a-entity>     
+<a-entity geometry="primitive: plane" position="3.54507 3.92131 -2.17554" rotation="90 0.6 0" scale="10 10 1" material="offset: 0.95 0; anisotropy: 10.01; color: white; displacementScale: 0; displacementBias: 0.52; emissive: #d5bdac; emissiveIntensity: 0.26; metalness: 1; roughness: 1"></a-entity>     
     <!--izstades objekti-->
 
       <a-entity ></a-entity>
@@ -33,7 +33,7 @@ Working code
       <a-entity light="color: #a2f8ff; decay: 1.87; intensity: 10; type: point" position="-1.9869 1.40387 -0.91841"></a-entity>-->
 
   
-<!--video tekstura durvim-->>
+<!--video tekstura durvim-->
 <a-assets>
   <video id="myVideo" src="aframe_assets/aframe_video.mp4" autoplay loop="true" muted playsinline></video>
 </a-assets>
@@ -49,10 +49,10 @@ Working code
 
 <a-entity gltf-model="aframe_assets/glezna2.glb" 
           position="2.70526 2.86061 -5.84974" 
-          scale="0.6 0.6 1"
+          scale="0.7 0.7 0.7"
           class="interactable"
           highlight-on-raycast 
-          show-on-interact="imgSrc: aframe_assets/glezna2.jpg" scale="0.7 0.7 0.7">
+          show-on-interact="imgSrc: aframe_assets/glezna2.jpg">
 </a-entity>
 
 <a-entity gltf-model="aframe_assets/pc.glb" id="pc" 
@@ -74,7 +74,7 @@ Working code
 
 
 
-<!--rotejamas durvis-->>
+<!--rotejamas durvis-->
       <a-entity gltf-model="aframe_assets/durtinas.glb" id="cabinet" position="3.08756 1.65587 0.93647" rotation="0 90 0" scale="3 3 3"  toggle-door="openAngle: 90; duration: 500"
         class="clickable"> </a-entity>
 
@@ -94,7 +94,9 @@ Working code
 
 
 
-       <a-entity camera look-controls wasd-controls="acceleration: 10" navmesh="navmesh: #navmesh01" position="0 1.6 0" raycaster="objects: .interactable; far: 3" ></a-entity>
+       <a-entity camera look-controls wasd-controls="acceleration: 10" navmesh="navmesh: #navmesh01" position="0 1.6 0">
+         <a-entity cursor="rayOrigin: mouse" raycaster="objects: .interactable, .clickable; far: 10"></a-entity>
+       </a-entity>
 
 
 
@@ -113,7 +115,6 @@ AFRAME.registerComponent('highlight-on-raycast', {
     this.hovered = false;
     this.originalScale = null;
     this.originalEmissives = [];
-    this.camera = document.querySelector('[camera]');
     this.overlayText = null;
 
     // Wait for model to load
@@ -127,14 +128,11 @@ AFRAME.registerComponent('highlight-on-raycast', {
         }
       });
     });
-  },
-  tick: function () {
-    if (!this.originalScale) return; // model not loaded yet
 
-    const intersects = this.camera.components.raycaster.intersections || [];
-    const isHover = intersects.length && intersects[0].object.el === this.el;
-
-    if (isHover && !this.hovered) {
+    // Mouse enter - highlight
+    this.el.addEventListener('mouseenter', () => {
+      if (!this.originalScale) return;
+      
       // Scale up
       this.el.object3D.scale.copy(this.originalScale.clone().multiplyScalar(1.05));
 
@@ -150,14 +148,18 @@ AFRAME.registerComponent('highlight-on-raycast', {
         this.overlayText.setAttribute('value', this.data.text);
         this.overlayText.setAttribute('align', 'center');
         this.overlayText.setAttribute('color', '#FFFFAA');
-        this.overlayText.setAttribute('position', '0 1 0'); // adjust as needed
+        this.overlayText.setAttribute('position', '0 1 0');
         this.overlayText.setAttribute('side', 'double');
         this.el.appendChild(this.overlayText);
       }
 
       this.hovered = true;
+    });
 
-    } else if (!isHover && this.hovered) {
+    // Mouse leave - restore
+    this.el.addEventListener('mouseleave', () => {
+      if (!this.originalScale) return;
+      
       // Restore scale
       this.el.object3D.scale.copy(this.originalScale);
 
@@ -173,7 +175,7 @@ AFRAME.registerComponent('highlight-on-raycast', {
       }
 
       this.hovered = false;
-    }
+    });
   }
 });
 
@@ -190,12 +192,15 @@ AFRAME.registerComponent('highlight-on-raycast', {
     const el = this.el;
     const camera = document.querySelector('[camera]');
     let overlay = null;
+    let isHovered = false;
 
+    // Track hover state
+    el.addEventListener('mouseenter', () => { isHovered = true; });
+    el.addEventListener('mouseleave', () => { isHovered = false; });
+
+    // Show overlay on 'E' key when hovered
     window.addEventListener('keydown', (e) => {
-      const raycaster = camera.components.raycaster;
-      const intersects = raycaster ? raycaster.intersections : [];
-
-      if ((e.key === 'e' || e.key === 'E') && intersects.length && intersects[0].object.el === el) {
+      if ((e.key === 'e' || e.key === 'E') && isHovered) {
         if (!overlay) {
           overlay = document.createElement('a-plane');
           overlay.setAttribute('src', this.data.imgSrc);
@@ -220,11 +225,34 @@ AFRAME.registerComponent('highlight-on-raycast', {
 
     </a-scene>
 
-</a-scene>
+<script>
+// Toggle door component for opening/closing doors
+AFRAME.registerComponent('toggle-door', {
+  schema: {
+    openAngle: { type: 'number', default: 90 },
+    duration: { type: 'number', default: 500 }
+  },
+  init: function() {
+    this.isOpen = false;
+    this.originalRotation = this.el.getAttribute('rotation') || {x: 0, y: 0, z: 0};
+    
+    this.el.addEventListener('click', () => {
+      this.toggle();
+    });
+  },
+  toggle: function() {
+    const targetY = this.isOpen ? this.originalRotation.y : this.originalRotation.y + this.data.openAngle;
+    this.el.setAttribute('animation', {
+      property: 'rotation',
+      to: `${this.originalRotation.x} ${targetY} ${this.originalRotation.z}`,
+      dur: this.data.duration,
+      easing: 'easeInOutQuad'
+    });
+    this.isOpen = !this.isOpen;
+  }
+});
+</script>
 
-
-
- 
   </body>
 </html>
 
